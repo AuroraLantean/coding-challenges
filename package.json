@@ -1,0 +1,14 @@
+{
+  "name": "coding-challenges",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "t1":"bun typescript/array-sum.ts"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.3.2"
+  }
+}
