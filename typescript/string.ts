@@ -46,17 +46,26 @@ export const wordCount = (s: string, str: string) => {
 }
 export const wordCountEach = (str: string) => {
   let obj: { [key: string]: number } = {}
-
+  str = str.replace(/\s+/g, '');// remove all spaces
   for (let ch of str) {
-    if (!obj[ch as keyof typeof obj]) {
-      obj[ch as keyof typeof obj] = 1;
+    if (!obj[ch]) {
+      obj[ch] = 1;
     }
     else {
-      obj[ch as keyof typeof obj] += 1
+      obj[ch] += 1
     }
   }
   lg("wordCountEach occurrence:", obj)
   return obj;
+}
+export const firstRecurringChar = (str: string) => {
+  var charCount: { [key: string]: number } = {};
+  str = str.replace(/\s+/g, '');// remove all spaces
+  for (let char of str) {
+    if (char in charCount) return char;
+    charCount[char] = 1;
+  }
+  return null;
 }
 export const wordCountEach2 = (str: string) => {
   let obj: { [key: string]: number } = [...str].reduce((a: { [key: string]: number }, e) => { a[e] = a[e] ? a[e] + 1 : 1; return a }, {});
@@ -65,19 +74,57 @@ export const wordCountEach2 = (str: string) => {
   lg("wordCountEach2 occurrence:", obj)
   return obj;
 }
-export const objMaxValue = (obj: { [key: string]: number }) => {
-  let charCount = 0;
-  let charMostUsed = '';
-  for (let char in obj) {
-    if (obj[char] > charCount) {
-      charCount = obj[char]
-      charMostUsed = char;
-    }// else if (obj[char] === charCount) { }
+export const objValueToArray = (obj: { [key: string]: number }) => {
+  const values = [];
+  const keys = [];
+  for (let key in obj) {
+    values.push(obj[key]);
+    keys.push(key);
   }
-  let out = { char: charMostUsed, count: charCount };
+  lg('objValueToArray. keys:', keys, ', values:', values)
+  return { keys, values };
+}
+
+export const objMaxValue = (obj: { [key: string]: number }) => {
+  let maxCharCount = 0;
+  let maxCountChar = '';
+  for (let char in obj) {
+    if (obj[char] > maxCharCount) {
+      maxCharCount = obj[char]
+      maxCountChar = char;
+    }// else if (obj[char] === maxCharCount) { }
+  }
+  let out = { char: maxCountChar, count: maxCharCount };
   lg('objMaxValue:', out);
   return out;
 }
+
+type obj = {
+  name: string,
+  value: string | string[]
+}
+export const mergeObjArray = (array: obj[]) => {
+  //{ name: string, value: string[] }[]
+  const out = array.reduce((acc: any, { name, value }) => {
+    acc[name] ??= { name: name, value: [] };// Nullish coalescing assignment 	x ??= f() means	x ?? (x = f())
+    if (Array.isArray(value)) // if it's array type then use concat on arrays
+      acc[name].value = acc[name].value.concat(value);
+    else
+      acc[name].value.push(value);//value must be string => push to an array
+    return acc;
+  }, {});
+  lg('mergeObjArray:', out);
+  return out;
+}
+/* export const objectMerge = (...objects) => {
+  if ( Array.isArray(objects[0]) ) {
+    objects = objects[0]
+  }
+  return objects.reduce((a, b) => {
+    return Object.assign(a, b);
+  })
+} */
+
 export const checkString = (str: string) => {
   // check if the string starts with S and ends with G
   if (str.startsWith('S') && str.endsWith('G')) {

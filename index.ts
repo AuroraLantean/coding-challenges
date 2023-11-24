@@ -1,19 +1,20 @@
-import { arraySum, compareTwoNumArrays, countUniqueElements, strToIntArray } from "./typescript/array";
+import { strArraySort, arraySum, compareTwoNumArrays, countUniqueElements, strToIntArray, numArraySort, numArrayFindAny } from "./typescript/array";
 import { extraLongFactorials } from "./typescript/factorial";
 import { fizzBuzz, roundDecimal, sumFromZero } from "./typescript/math";
-import { capitalize, isPalindrome, longestWord, objMaxValue, vowelCount, wordCount, wordCountEach, wordCountEach2 } from "./typescript/string";
+import { capitalize, firstRecurringChar, isPalindrome, longestWord, mergeObjArray, objMaxValue, objValueToArray, vowelCount, wordCount, wordCountEach, wordCountEach2 } from "./typescript/string";
 import { lg } from "./typescript/utils";
 
 const args = Bun.argv;
 const arg1 = args[2];//, arg2 = args[3];
-//lg('arguments:', args, arg1, arg2);
-let inputs, out;
+lg('arguments:', args, arg1);
+let inputs, out, obj, obj2, maxCount;
 
 switch (arg1) {
   //MATH
   case '0':
     roundDecimal(Math.PI, 7)
-    sumFromZero(10)
+    sumFromZero(10.345)//55
+    sumFromZero(10.345, 2)
     break;
   case '1':
     fizzBuzz()
@@ -41,12 +42,12 @@ switch (arg1) {
     inputs = [1000000001, 1000000002, 1000000003, 1000000004, 1000000005]//5000000015
     out = arraySum(inputs)
     break;
-  case '42':
+  case '41':
     let ar1 = [5, 6, "+", 7, "D"]
     let ar2 = [3, 6, 7, 10, "C"]
     out = compareTwoNumArrays(ar1, ar2)
     break;
-  case '2':
+  case '42':
     out = extraLongFactorials(0)//1
     lg('out:', out)
     out = extraLongFactorials(5)//120
@@ -74,13 +75,43 @@ switch (arg1) {
     break;
   case '45':
     inputs = 'GeeksforGeeksGGr'
-    let obj = wordCountEach(inputs)
-    let obj2 = wordCountEach2(inputs)
-    let maxCount = objMaxValue(obj)
+    obj = wordCountEach(inputs)
+    //obj2 = wordCountEach2(inputs)
+    out = objValueToArray(obj)
+    maxCount = objMaxValue(obj)
+
+    inputs = 'aBcDEfg'
+    obj = wordCountEach(inputs)
+    out = objValueToArray(obj)
+    maxCount = objMaxValue(obj)
+
+    inputs = 'federico'
+    out = firstRecurringChar(inputs)
+    lg("out: " + out)
     break;
   case '46':
+    inputs = ["Banana", "Orange", "Apple", "Mango"];
+    strArraySort(inputs);
+    strArraySort(inputs, true);
+
+    inputs = [40, 100, 1, 5, 25, 10];
+    out = numArraySort(inputs)
+    lg("lowest:", out[0], ', highest:', out[out.length - 1])
+    numArraySort(inputs, true)
+    numArrayFindAny(inputs, 99)
     break;
   case '47':
+    var array = [{
+      name: "foo1",
+      value: "val1"
+    }, {
+      name: "foo1",
+      value: ["val2", "val3"]
+    }, {
+      name: "foo2",
+      value: "val4"
+    }];
+    mergeObjArray(array)
     break;
   case '8':
     break;

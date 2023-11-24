@@ -56,6 +56,24 @@ export const compareTwoNumArrays = (ar1: any[], ar2: any[]) => {
   return out;
 }
 
+export const strArraySort = (arr: string[], isToreverse = false) => {
+  let out = arr.sort()
+  if (isToreverse) out = out.reverse()
+  lg('strArraySort:', out)
+  return out
+}
+export const numArraySort = (arr: number[], isToreverse = false) => {
+  let out = arr.sort(function (a, b) { return a - b })
+  if (isToreverse) out = out.reverse()
+  lg('numArraySort:', out)
+  return out
+}
+export const numArrayFindAny = (arr: number[], upperLimit: number) => {
+  let out = arr.some(function (each) { return each > upperLimit })
+  lg('numArrayFindAny:', out)
+  return out
+}
+
 export const makeNumArr = (num: number, value: any) => new Array(num).fill(value)//.map((_, i) => i + 1);
 
 export const strToIntArray = (arr: string) => arr.split(" ").map(num => parseInt(num))

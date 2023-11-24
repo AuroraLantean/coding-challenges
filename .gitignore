@@ -1,5 +1,24 @@
 # Based on https://raw.githubusercontent.com/github/gitignore/main/Node.gitignore
 
+aarchives
+examples
+*.sh
+*.js
+
+.env
+**/target
+
+dist/
+.idea/
+.anchor
+.DS_Store
+target
+**/*.rs.bk
+node_modules
+test-ledger
+.yarn
+**/.vscode
+
 # Logs
 
 logs
@@ -173,4 +192,3 @@ dist
 
 # Finder (MacOS) folder config
 .DS_Store
-

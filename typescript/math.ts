@@ -1,9 +1,9 @@
 import { lg } from "./utils";
 
-export const roundDecimal = (n: number, places = 0) => {
-  let dpNum = Math.pow(10, places)
+export const roundDecimal = (n: number, dp = 0) => {
+  let dpNum = Math.pow(10, dp)
   let out = Math.floor(n * dpNum) / dpNum;
-  lg('out:', out)
+  lg('roundDecimal():', out)
   return out;
 }
 
@@ -30,15 +30,24 @@ export const fizzBuzz = (max = 20, n1 = 3, n2 = 5) => {
   return out
 }
 
-export const sumFromZero = (num: number) => {
-  var numbers = [];
-  num = Math.abs(num);
-  if (num === 1) return 1;
-
+export const sumFromZero = (num: number, dp = 0) => {
+  const abs = Math.abs(num);
+  if (dp) {
+    num = roundDecimal(abs, dp);
+  } else {
+    num = Math.floor(abs);
+  }
+  lg("num:", num)
+  let out = 0;
+  for (var n = num; n > 0; n--) {
+    lg(n)
+    out += n;
+  }
+  /*   if (num === 1) return 1;
   for (var i = 0; i <= num; i++) {
     numbers.push(i)
   }
-  let out = numbers.reduce((a, b) => a + b);
+  let out = numbers.reduce((a, b) => a + b); */
   lg(out)
   return out
 }
