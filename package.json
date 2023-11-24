@@ -3,7 +3,7 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "t1":"bun typescript/array-sum.ts"
+    "t1": "bun index.ts"
   },
   "devDependencies": {
     "bun-types": "latest"
