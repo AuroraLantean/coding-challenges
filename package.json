@@ -3,7 +3,8 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "t1": "bun index.ts"
+    "t1": "bun index.ts",
+    "test": "echo notworking"
   },
   "devDependencies": {
     "bun-types": "latest"

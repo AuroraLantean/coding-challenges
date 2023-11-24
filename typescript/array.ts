@@ -1,6 +1,7 @@
 /**
  * make new input arguments for easy copying and pasting into real tests
  */
+const lg = console.log;
 export const arraySum = (inputs: any[]) => {
   //Avoid input name collide with my variable name below by changing the input variable name!
   const arr = [] as number[];//typescript!
@@ -23,10 +24,11 @@ export const arraySum = (inputs: any[]) => {
     lg('array:', arr)
   }
   const out = arr.reduce((sum, box, index) => sum + box)
+  lg('out:', out)
   return out;
 };
 
-export const compareTwoArrays = (ar1: any[], ar2: any[]) => {
+export const compareTwoNumArrays = (ar1: any[], ar2: any[]) => {
   //Avoid input name collide with my variable name below by changing the input variable name!
   const lg = console.log;
 
@@ -50,7 +52,25 @@ export const compareTwoArrays = (ar1: any[], ar2: any[]) => {
       out[1] += 1;
     }
   }
+  lg('out:', out)
   return out;
 }
 
 export const makeNumArr = (num: number, value: any) => new Array(num).fill(value)//.map((_, i) => i + 1);
+
+export const strToIntArray = (arr: string) => arr.split(" ").map(num => parseInt(num))
+
+export const countUniqueElements = (arr: number[]) => {
+  let out = new Set(arr).size;
+  lg('out:', out)
+  return out;
+}
+export const randomNumberArray = (arrayLength: number) => {
+  var arr = new Array(arrayLength);
+  for (var i = 0; i < arrayLength; i++) {
+    arr[i] = Math.random();
+  }
+  let out = arr.sort()
+  lg('out:', out)
+  return out;
+}
