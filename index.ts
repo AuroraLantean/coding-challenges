@@ -1,7 +1,7 @@
-import { strArraySort, arraySum, compareTwoNumArrays, countUniqueElements, strToIntArray, numArraySort, numArrayFindAny } from "./typescript/array";
+import { strArraySort, arraySum, compareTwoNumArrays, countUniqueElements, strToIntArray, numArraySort, numArrayFindAny, mostCommonChar } from "./typescript/array";
 import { extraLongFactorials } from "./typescript/factorial";
 import { fizzBuzz, roundDecimal, sumFromZero } from "./typescript/math";
-import { capitalize, firstRecurringChar, isPalindrome, longestWord, mergeObjArray, objMaxValue, objValueToArray, vowelCount, wordCount, wordCountEach, wordCountEach2 } from "./typescript/string";
+import { capitalize, firstRecurringChar, isPalindrome, longestWord, mergeObjArray, objMaxValue, objValueToArray, reverseWords, vowelCount, vowelCount2, wordCount, wordCountEach, wordCountEach2 } from "./typescript/string";
 import { lg } from "./typescript/utils";
 
 const args = Bun.argv;
@@ -66,7 +66,8 @@ switch (arg1) {
     countUniqueElements(intArray)
     longestWord('short loooong l0000ng') //=> 'loooong'
     capitalize('hello world') //=> 'Hello World'
-    vowelCount('potatoes') //=> 1
+    vowelCount('potatoes') //=> 3
+    vowelCount2('potatoes') //=> 3
     break;
   case '44':
     inputs = "str1,str2,str3,str4"
@@ -99,6 +100,9 @@ switch (arg1) {
     lg("lowest:", out[0], ', highest:', out[out.length - 1])
     numArraySort(inputs, true)
     numArrayFindAny(inputs, 99)
+
+    inputs = ['a', 'b', 'c', 'a', 'b', 'b']
+    mostCommonChar(inputs)
     break;
   case '47':
     var array = [{
@@ -113,13 +117,61 @@ switch (arg1) {
     }];
     mergeObjArray(array)
     break;
-  case '8':
+  case '48':
+
     break;
   case '9':
     break;
-
-
-
+  case '70':
+    inputs = "Welcome to JavaScript in this Guide"
+    reverseWords(inputs)
+    break;
+  case '100':
+    lg(foo);//no error. value === undefined
+    var foo = 1;//ONLY var declaration and function declaration will bubble up; Not for let nor const
+    break;
+  case '101':
+    const obj3 = {
+      mesg: "Hello World",
+      getMesg() { const mesg = "haha"; return this.mesg },
+    }
+    lg(obj3.getMesg())//this inside objects will point to that object
+    //const name = 'alice'
+    var name = 'bob'
+    class Pet {
+      name: string;
+      constructor(name: string) { this.name = name; }
+      getName = () => this.name;//arrow functions inherit context from their parents!
+      getName2 = function () { this.name; }//older functions inherit context from Global object
+      getName3 = function () { return this.name; }
+    }
+    const cat = new Pet("Fluffy")
+    lg('getName:', cat.getName())//Fluffy
+    lg('getName2:', cat.getName2())//undefined
+    lg('getName3:', cat.getName3())//Fluffy
+    break;
+  case '102':
+    //Objects and arrays are passed by reference, and all other variables are passed by value!
+    const basicConfig = { host: 'localhost' }
+    const extendConfig = (config: any) => {
+      //Make a new object via spread operator or Object.assign, then add properties to it
+      return { ...config, port: 3000 }
+      //return Object.assign({}, config, { port: 3000 })
+      //config.port = 3000;//will mutate the passed object
+      //return config;
+    }
+    const extendedConfig = extendConfig(basicConfig)
+    lg('basicConfig', basicConfig)
+    lg('extendConfig', extendedConfig)
+    break;
+  case '10':
+    break;
+  case '10':
+    break;
+  case '10':
+    break;
+  case '10':
+    break;
   default:
     lg("unknown selection")
 }

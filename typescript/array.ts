@@ -83,6 +83,23 @@ export const countUniqueElements = (arr: number[]) => {
   lg('out:', out)
   return out;
 }
+export const mostCommonChar = (arr: string[]) => {
+  const mapping = arr.reduce((acc: any, el) => {
+    acc[el] = acc[el] ? acc[el] + 1 : 1;
+    return acc;
+  }, {})
+  lg('mapping:', mapping)
+  const out = Object.entries(mapping).reduce((acc: any, el: any) => (el[1] > acc[1] ? el : acc), [null, 0])[0];
+  //Object.entries makes an array of arrays: Object.entries({a: 1, b: 2}) gives you [['a', 1], ['b', 2]]
+  //[null, 0] are initial values of[value, count]
+  lg('out:', out)
+  return out;
+}
+export const mostCommonStr = (arr: number[]) => {
+  let out = new Set(arr).size;
+  lg('out:', out)
+  return out;
+}
 export const randomNumberArray = (arrayLength: number) => {
   var arr = new Array(arrayLength);
   for (var i = 0; i < arrayLength; i++) {

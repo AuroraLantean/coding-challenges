@@ -1,7 +1,11 @@
 import { lg } from "./utils";
 
 export const reverseStr = (str: string) => str.split('').reverse().join('');
-
+export const reverseWords = (str: string) => {
+  let out = str.split(' ').reverse().join(' ');
+  lg('reverseWords:', out)
+  return out;
+}
 export const isPalindrome = (str: string) => {
   const boo = reverseStr(str) === str;
   lg('isPalindrome:', boo)
@@ -33,7 +37,13 @@ export const vowelCount = function (str: string) {
       count++;
     }
   }
-  lg('count:', count)
+  lg('vowelCount:', count)
+  return count;
+}
+export const vowelCount2 = function (str: string) {
+  const vowels = ["a", "e", "i", "o", "u"]
+  const count = str.toLowerCase().split('').reduce((acc, cur) => vowels.includes(cur) ? acc + 1 : acc, 0)
+  lg('vowelCount2:', count)
   return count;
 }
 export const wordCount = (s: string, str: string) => {
@@ -116,14 +126,6 @@ export const mergeObjArray = (array: obj[]) => {
   lg('mergeObjArray:', out);
   return out;
 }
-/* export const objectMerge = (...objects) => {
-  if ( Array.isArray(objects[0]) ) {
-    objects = objects[0]
-  }
-  return objects.reduce((a, b) => {
-    return Object.assign(a, b);
-  })
-} */
 
 export const checkString = (str: string) => {
   // check if the string starts with S and ends with G
