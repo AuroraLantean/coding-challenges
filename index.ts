@@ -1,13 +1,13 @@
-import { strArraySort, arraySum, compareTwoNumArrays, countUniqueElements, strToIntArray, numArraySort, numArrayFindAny, mostCommonChar } from "./typescript/array";
+import { strArraySort, arraySum, compareTwoNumArrays, countUniqueElements, strToIntArray, numArraySort, numArrayFindAbove, mostCommonChar, uniqueSet, mergeObjArray2, mergeDupObjArray, removeDupObjArray } from "./typescript/array";
 import { extraLongFactorials } from "./typescript/factorial";
-import { fizzBuzz, roundDecimal, sumFromZero } from "./typescript/math";
-import { capitalize, firstRecurringChar, isPalindrome, longestWord, mergeObjArray, objMaxValue, objValueToArray, reverseWords, vowelCount, vowelCount2, wordCount, wordCountEach, wordCountEach2 } from "./typescript/string";
+import { findPattern, fizzBuzz, roundDecimal, sumFromZero } from "./typescript/math";
+import { capitalize, firstRecurringChar, isPalindrome, longestWords, objMaxValue, objToArrays, reverseWords, sortWords, vowelCount, vowelCount2, wordCount, wordCountEach, wordCountEach2 } from "./typescript/string";
 import { lg } from "./typescript/utils";
 
 const args = Bun.argv;
 const arg1 = args[2];//, arg2 = args[3];
 lg('arguments:', args, arg1);
-let inputs, out, obj, obj2, maxCount;
+let inputs, out, obj, obj2, maxCount, array;
 
 switch (arg1) {
   //MATH
@@ -15,11 +15,27 @@ switch (arg1) {
     roundDecimal(Math.PI, 7)
     sumFromZero(10.345)//55
     sumFromZero(10.345, 2)
+
+    findPattern([2, 4, 6])
+    findPattern([3, 9, 27])
+    findPattern([3, 5, 14])
     break;
   case '1':
     fizzBuzz()
     break;
   case '2':
+    out = extraLongFactorials(0)//1
+    lg('out:', out)
+    out = extraLongFactorials(5)//120
+    lg('out:', out)
+    out = extraLongFactorials(10)//3628800
+    lg('out:', out)
+    out = extraLongFactorials(25)//15511210043330985984000000n
+    lg('out:', out)
+    out = extraLongFactorials(45)//119622220865480194561963161495657715064383733760000000000
+    lg('out:', out)
+    break;
+  case '3':
     break;
   case '12':
     break;
@@ -47,24 +63,14 @@ switch (arg1) {
     let ar2 = [3, 6, 7, 10, "C"]
     out = compareTwoNumArrays(ar1, ar2)
     break;
-  case '42':
-    out = extraLongFactorials(0)//1
-    lg('out:', out)
-    out = extraLongFactorials(5)//120
-    lg('out:', out)
-    out = extraLongFactorials(10)//3628800
-    lg('out:', out)
-    out = extraLongFactorials(25)//15511210043330985984000000n
-    lg('out:', out)
-    out = extraLongFactorials(45)//119622220865480194561963161495657715064383733760000000000
-    lg('out:', out)
-    break;
   case '43':
     inputs = '1 1 2 2 9 8'
     isPalindrome(inputs)
     const intArray = strToIntArray(inputs)
     countUniqueElements(intArray)
-    longestWord('short loooong l0000ng') //=> 'loooong'
+    sortWords('what early   today lo00gggg')
+    longestWords('short early   what today')
+    longestWords('short early   what todayyyyyy')
     capitalize('hello world') //=> 'Hello World'
     vowelCount('potatoes') //=> 3
     vowelCount2('potatoes') //=> 3
@@ -78,13 +84,13 @@ switch (arg1) {
     inputs = 'GeeksforGeeksGGr'
     obj = wordCountEach(inputs)
     //obj2 = wordCountEach2(inputs)
-    out = objValueToArray(obj)
-    maxCount = objMaxValue(obj)
+    out = objToArrays(obj)
+    maxCount = objMaxValue(obj)//max value is 4 so some duplicate chars are found
 
     inputs = 'aBcDEfg'
     obj = wordCountEach(inputs)
-    out = objValueToArray(obj)
-    maxCount = objMaxValue(obj)
+    out = objToArrays(obj)
+    maxCount = objMaxValue(obj)//max value is 1 so all are unique
 
     inputs = 'federico'
     out = firstRecurringChar(inputs)
@@ -95,17 +101,17 @@ switch (arg1) {
     strArraySort(inputs);
     strArraySort(inputs, true);
 
-    inputs = [40, 100, 1, 5, 25, 10];
-    out = numArraySort(inputs)
-    lg("lowest:", out[0], ', highest:', out[out.length - 1])
-    numArraySort(inputs, true)
-    numArrayFindAny(inputs, 99)
+    inputs = [40, 100, 1, 5, 25, 10, 10, 10];
+    uniqueSet(inputs)
+    numArraySort(inputs)
+    numArraySort(inputs, true)//reverse order
+    numArrayFindAbove(inputs, 99)
 
     inputs = ['a', 'b', 'c', 'a', 'b', 'b']
     mostCommonChar(inputs)
     break;
   case '47':
-    var array = [{
+    array = [{
       name: "foo1",
       value: "val1"
     }, {
@@ -115,10 +121,16 @@ switch (arg1) {
       name: "foo2",
       value: "val4"
     }];
-    mergeObjArray(array)
+    mergeObjArray2(array)
     break;
   case '48':
-
+    array = [{ id: 1, name: "john" },
+    { id: 1, name: "johnny" },
+    { id: 2, name: "jane" },
+    { id: 2, name: "janny" },
+    { id: 3, name: "max" }];
+    removeDupObjArray(array)
+    mergeDupObjArray(array)
     break;
   case '9':
     break;

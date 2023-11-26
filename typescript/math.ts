@@ -51,3 +51,20 @@ export const sumFromZero = (num: number, dp = 0) => {
   lg(out)
   return out
 }
+
+export const findPattern = (arr: number[]) => {
+  let arith = new Set(), geo = new Set();
+  for (let i = 1; i < arr.length; i++) {
+    let pat1 = arr[i] - arr[i - 1];
+    arith.add(pat1);
+    let pat2 = arr[i] / arr[i - 1];
+    geo.add(pat2);
+    //lg('arith pattern:', pat1, ', geo pattern:', geo)
+  }
+  let out = ''
+  if (arith.size === 1) out = "Arithmetic"
+  else if (geo.size === 1) out = "Geometric"
+  else out = "random"
+  lg('findPattern:', out)
+  return out;
+}

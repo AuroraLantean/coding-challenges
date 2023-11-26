@@ -10,16 +10,32 @@ export const isPalindrome = (str: string) => {
   const boo = reverseStr(str) === str;
   lg('isPalindrome:', boo)
 }
-export const longestWord = (str: string) => {
-  var words = str.trim().replace(/\W/g, ' ').trim().split(/\s+/);
+export const sortWords = (str: string) => {
+  let words = str.trim().replace(/\W/g, ' ').trim().split(/\s+/);//\W Matches any character that is not a word character from the basic Latin alphabet. Equivalent to [^A-Za-z0-9_]. For example, /\W/ or /[^A-Za-z0-9_]/ matches "%" in "50%" and "É" in "Émanuel". 
   words = words.sort((a, b) => {
     return b.length - a.length
   })
-  let out = words.shift()
-  lg('out:', out)
+  let out = words;
+  //let out = words.shift();// returns the first element or undefined if the array is empty
+  lg('sortWords:', out)
   return out;
 }
-
+export const longestWords = (str: string) => {
+  let words = str.trim().split(" ");
+  //lg('words:', words)
+  let max = ['']
+  for (let word of words) {
+    if (max[max.length - 1].length < word.length) {
+      max = [word]
+    } else if (max[max.length - 1].length === word.length) {
+      max = [...max, word]
+    } else {
+      //ignore shorter words
+    }
+  }
+  lg('longestWords:', max)
+  return max;
+}
 export const capitalize = (str: string) => {
   var words = str.trim().split(/\s+/g)
   let out = words.map(word => {
@@ -78,20 +94,20 @@ export const firstRecurringChar = (str: string) => {
   return null;
 }
 export const wordCountEach2 = (str: string) => {
-  let obj: { [key: string]: number } = [...str].reduce((a: { [key: string]: number }, e) => { a[e] = a[e] ? a[e] + 1 : 1; return a }, {});
+  let obj = [...str].reduce((a: any, e) => { a[e] = a[e] ? a[e] + 1 : 1; return a }, {});
   //if a[e] is undefined, a[e] = 1; Else a[e] = a[e]+1
   //var result = [...s].reduce((a, e) => { a[e] = a[e] ? a[e] + 1 : 1; return a }, {}); 
   lg("wordCountEach2 occurrence:", obj)
   return obj;
 }
-export const objValueToArray = (obj: { [key: string]: number }) => {
+export const objToArrays = (obj: { [key: string]: number }) => {
   const values = [];
   const keys = [];
   for (let key in obj) {
     values.push(obj[key]);
     keys.push(key);
   }
-  lg('objValueToArray. keys:', keys, ', values:', values)
+  lg('objToArrays. keys:', keys, ', values:', values)
   return { keys, values };
 }
 
@@ -106,24 +122,6 @@ export const objMaxValue = (obj: { [key: string]: number }) => {
   }
   let out = { char: maxCountChar, count: maxCharCount };
   lg('objMaxValue:', out);
-  return out;
-}
-
-type obj = {
-  name: string,
-  value: string | string[]
-}
-export const mergeObjArray = (array: obj[]) => {
-  //{ name: string, value: string[] }[]
-  const out = array.reduce((acc: any, { name, value }) => {
-    acc[name] ??= { name: name, value: [] };// Nullish coalescing assignment 	x ??= f() means	x ?? (x = f())
-    if (Array.isArray(value)) // if it's array type then use concat on arrays
-      acc[name].value = acc[name].value.concat(value);
-    else
-      acc[name].value.push(value);//value must be string => push to an array
-    return acc;
-  }, {});
-  lg('mergeObjArray:', out);
   return out;
 }
 

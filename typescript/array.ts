@@ -66,9 +66,10 @@ export const numArraySort = (arr: number[], isToreverse = false) => {
   let out = arr.sort(function (a, b) { return a - b })
   if (isToreverse) out = out.reverse()
   lg('numArraySort:', out)
+  lg("lowest:", out[0], ', highest:', out[out.length - 1])
   return out
 }
-export const numArrayFindAny = (arr: number[], upperLimit: number) => {
+export const numArrayFindAbove = (arr: number[], upperLimit: number) => {
   let out = arr.some(function (each) { return each > upperLimit })
   lg('numArrayFindAny:', out)
   return out
@@ -84,20 +85,66 @@ export const countUniqueElements = (arr: number[]) => {
   return out;
 }
 export const mostCommonChar = (arr: string[]) => {
-  const mapping = arr.reduce((acc: any, el) => {
-    acc[el] = acc[el] ? acc[el] + 1 : 1;
+  const mapping = arr.reduce((acc: any, x) => {
+    acc[x] = acc[x] ? acc[x] + 1 : 1;
     return acc;
   }, {})
   lg('mapping:', mapping)
-  const out = Object.entries(mapping).reduce((acc: any, el: any) => (el[1] > acc[1] ? el : acc), [null, 0])[0];
+  const out = Object.entries(mapping).reduce((acc: any, x: any) => (x[1] > acc[1] ? x : acc), [null, 0])[0];
   //Object.entries makes an array of arrays: Object.entries({a: 1, b: 2}) gives you [['a', 1], ['b', 2]]
   //[null, 0] are initial values of[value, count]
-  lg('out:', out)
+  lg('mostCommonChar:', out)
   return out;
 }
-export const mostCommonStr = (arr: number[]) => {
-  let out = new Set(arr).size;
-  lg('out:', out)
+//-------------==
+type obj = {
+  name: string,
+  value: string | string[]
+}
+export const mergeObjArray2 = (array: obj[]) => {
+  //{ name: string, value: string[] }[]
+  const out = array.reduce((acc: any, { name, value }) => {
+    acc[name] ??= { name: name, value: [] };// Nullish coalescing assignment: x ??= f() means x =	x ?? (x = f())
+    if (Array.isArray(value)) // if it's array type then use concat on arrays
+      acc[name].value = acc[name].value.concat(value);
+    else
+      acc[name].value.push(value);//value must be string => push to an array
+    return acc;
+  }, {});
+  lg('mergeObjArray2:', out);
+  return out;
+}
+//-------------==
+type obb = {
+  id: number,
+  name: string
+}
+export const removeDupObjArray = (arr: obb[]): obb[] => {
+  let out = arr.reduce((acc: obb[], x: obb) => {
+    let obj = acc.find((box: obb) => box.id === x.id);
+    if (obj) return acc;
+    return acc.concat(x)
+  }, [])
+  lg('removeDupObjArray:', out)
+  return out;
+}
+export const mergeDupObjArray = (arr: obb[]): obb[] => {
+  let out = arr.reduce((acc: obb[], x: obb) => {
+    let obj = acc.find((box: obb) => box.id === x.id);
+    if (obj) {
+      //lg('x:', x)
+      return [...acc, { id: x.id, name: x.name + ' ' + obj.name }];
+    }
+    return acc.concat(x)
+  }, [])
+  lg('mergeObjArray:', out)
+  return out;
+}
+
+
+export const uniqueSet = (arr: number[]) => {
+  let out = new Set(arr);
+  lg('uniqueSet:', out, ', size:', out.size)
   return out;
 }
 export const randomNumberArray = (arrayLength: number) => {
