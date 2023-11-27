@@ -70,22 +70,18 @@ export const wordCount = (s: string, str: string) => {
   lg('count:', count)
   return count;
 }
-export const wordCountEach = (str: string) => {
+export const charCount = (str: string) => {
   let obj: { [key: string]: number } = {}
   str = str.replace(/\s+/g, '');// remove all spaces
   for (let ch of str) {
-    if (!obj[ch]) {
-      obj[ch] = 1;
-    }
-    else {
-      obj[ch] += 1
-    }
+    if (!obj[ch]) obj[ch] = 1;
+    else obj[ch] += 1
   }
-  lg("wordCountEach occurrence:", obj)
+  lg("charCount occurrence:", obj)
   return obj;
 }
 export const firstRecurringChar = (str: string) => {
-  var charCount: { [key: string]: number } = {};
+  let charCount: { [key: string]: number } = {};
   str = str.replace(/\s+/g, '');// remove all spaces
   for (let char of str) {
     if (char in charCount) return char;
@@ -93,12 +89,60 @@ export const firstRecurringChar = (str: string) => {
   }
   return null;
 }
-export const wordCountEach2 = (str: string) => {
-  let obj = [...str].reduce((a: any, e) => { a[e] = a[e] ? a[e] + 1 : 1; return a }, {});
-  //if a[e] is undefined, a[e] = 1; Else a[e] = a[e]+1
-  //var result = [...s].reduce((a, e) => { a[e] = a[e] ? a[e] + 1 : 1; return a }, {}); 
-  lg("wordCountEach2 occurrence:", obj)
+export const charCount2 = (str: string) => {
+  let obj = [...str].reduce((acc: any, x) => {
+    acc[x] = acc[x] ? acc[x] + 1 : 1;
+    return acc
+  }, {});
+  //if acc[x] is undefined, acc[x] = 1; Else acc[x] = acc[x]+1
+  //var result = [...s].reduce((acc, x) => { acc[x] = acc[x] ? acc[x] + 1 : 1; return acc }, {}); 
+  lg("charCount2 occurrence:", obj)
   return obj;
+}
+export const charCountOnEachWord = (str: string) => {
+  let wordArr = str.toLowerCase().split(' ');
+  let out = wordArr.map(word => {
+    let chars = word.split('')
+    return chars.reduce((acc: any, ch) => {
+      acc[ch] = acc[ch] ? acc[ch] + 1 : 1;
+      if (acc[ch] > acc.max) acc.max = acc[ch]
+      return acc;
+    }, { max: 1, word })
+  })
+  lg('charCountOnEachWord:', out)
+  return out;
+}
+export const uniqueCharFromStr = (str: string) => {
+  let dup: any = []
+  let unique: any = []
+  for (let char of str) {
+    //chars = [...chars, char]
+    if (unique.indexOf(char) === -1) {
+      unique.push(char)
+    } else {
+      dup.push(char)
+    }
+  }
+  lg("uniqueCharFromStr unique:", unique, ', dup:', dup)
+  return { unique, dup };
+}
+export const isUniqueCharFromStr = (str: string) => {
+  let out = new Set(str).size === str.length;
+  lg('isUniqueCharFromStr:', out)
+  return out;
+}
+export const uniqueCharFromStr2 = (str: string) => {
+  let dup: any = []
+  let unique = new Set();
+  for (let char of str) {
+    if (unique.has(char)) {
+      dup.push(char)
+    } else {
+      unique.add(char)
+    }
+  }
+  lg("uniqueCharFromStr2 unique:", unique, ', dup:', dup)
+  return { unique, dup };
 }
 export const objToArrays = (obj: { [key: string]: number }) => {
   const values = [];

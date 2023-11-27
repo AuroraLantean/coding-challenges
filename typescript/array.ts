@@ -2,31 +2,6 @@
  * make new input arguments for easy copying and pasting into real tests
  */
 const lg = console.log;
-export const arraySum = (inputs: any[]) => {
-  //Avoid input name collide with my variable name below by changing the input variable name!
-  const arr = [] as number[];//typescript!
-  const lg = console.log;
-
-  for (let i = 0; i < inputs.length; i++) {
-    let box = inputs[i];
-    if (!isNaN(parseInt(box))) {
-      arr.push(box)
-    } else if (box === "+") {
-      const sum = arr[i - 1] + arr[i - 2]
-      arr.push(sum)
-    } else if (box === "D") {
-      arr.push(2 * arr[i - 1])
-    } else if (box === "C") {
-      arr.pop()
-    } else {
-      lg("skip invalid element")
-    }
-    lg('array:', arr)
-  }
-  const out = arr.reduce((sum, box, index) => sum + box)
-  lg('out:', out)
-  return out;
-};
 
 export const compareTwoNumArrays = (ar1: any[], ar2: any[]) => {
   //Avoid input name collide with my variable name below by changing the input variable name!
@@ -52,7 +27,7 @@ export const compareTwoNumArrays = (ar1: any[], ar2: any[]) => {
       out[1] += 1;
     }
   }
-  lg('out:', out)
+  lg('compareTwoNumArrays:', out)
   return out;
 }
 
@@ -62,28 +37,89 @@ export const strArraySort = (arr: string[], isToreverse = false) => {
   lg('strArraySort:', out)
   return out
 }
-export const numArraySort = (arr: number[], isToreverse = false) => {
-  let out = arr.sort(function (a, b) { return a - b })
-  if (isToreverse) out = out.reverse()
-  lg('numArraySort:', out)
-  lg("lowest:", out[0], ', highest:', out[out.length - 1])
+export const numArraySort = (nums: number[], isToreverse = false) => {
+  let out = nums.sort((a, b) => a - b)
+  let highest = out[out.length - 1];
+  lg("lowest:", out[0], ', highest:', highest,)
+
+  let subarr = out.slice(0, out.length - 1)
+  let subSum = subarr.reduce((acc, x) => acc + x, 0)
+  lg('subsum:', subSum, ', highest:', highest)
+  /* if (isToreverse) out = out.reverse()
+  lg('numArraySort:', out)*/
   return out
 }
 export const numArrayFindAbove = (arr: number[], upperLimit: number) => {
-  let out = arr.some(function (each) { return each > upperLimit })
+  let out = arr.some((each) => each > upperLimit)
   lg('numArrayFindAny:', out)
   return out
 }
+export const numArrayFilter1 = (nums: number[]) => {
+  let out = nums.filter(x => (x % 3 === 0 || x % 2 === 0))
+  lg('numArrayFilter1:', out)
+  return out
+}
+export const numArrayFilter3 = (nums: number[]) => {
+  let out = nums.reduce((acc: any, x) => {
+    if (x % 3 === 0 || x % 2 === 0) {
+      return [...acc, x]
+    }
+    return acc;
+  }, 0)
+  lg('numArrayFilter3:', out)
+  return out
+}
+//Remove elements that occur in one array from another
+export const removeArrFromArr = (nums1: number[], nums2: number[]) => {
+  const out = nums1.reduce((acc: any, curr) => {
+    if (nums2.includes(curr)) {
+      return acc;
+    }
+    return [...acc, curr];
+  }, []);
+  lg('removeArrFromArr:', out)
+  return out;
+}
+
+export const arraySum = (nums: number[]) => {
+  let out = nums.sort((a, b) => a - b)
+}
+export const arraySum3 = (inputs: any[]) => {
+  //Avoid input name collide with my variable name below by changing the input variable name!
+  const arr = [] as number[];//typescript!
+  const lg = console.log;
+
+  for (let i = 0; i < inputs.length; i++) {
+    let box = inputs[i];
+    if (!isNaN(parseInt(box))) {
+      arr.push(parseInt(box))
+    } else if (box === "+") {
+      const sum = arr[i - 1] + arr[i - 2]
+      arr.push(sum)
+    } else if (box === "D") {
+      arr.push(2 * arr[i - 1])
+    } else if (box === "C") {
+      arr.pop()
+    } else {
+      lg("skip invalid element")
+    }
+    lg('array:', arr)
+  }
+  const out = arr.reduce((sum, box, index) => sum + box)
+  lg('out:', out)
+  return out;
+};
 
 export const makeNumArr = (num: number, value: any) => new Array(num).fill(value)//.map((_, i) => i + 1);
 
 export const strToIntArray = (arr: string) => arr.split(" ").map(num => parseInt(num))
 
-export const countUniqueElements = (arr: number[]) => {
-  let out = new Set(arr).size;
-  lg('out:', out)
+export const uniqueSet = (arr: number[]) => {
+  let out = new Set(arr);
+  lg('uniqueSet:', out, ', size:', out.size)
   return out;
 }
+
 export const mostCommonChar = (arr: string[]) => {
   const mapping = arr.reduce((acc: any, x) => {
     acc[x] = acc[x] ? acc[x] + 1 : 1;
@@ -96,7 +132,7 @@ export const mostCommonChar = (arr: string[]) => {
   lg('mostCommonChar:', out)
   return out;
 }
-//-------------==
+//-------------== Array of Objects
 type obj = {
   name: string,
   value: string | string[]
@@ -140,13 +176,60 @@ export const mergeDupObjArray = (arr: obb[]): obb[] => {
   lg('mergeObjArray:', out)
   return out;
 }
+//-------------==
+type product = {
+  title: string,
+  company: string
+}
+export const filterByObjStrKey = (arr: product[], companyName: string) => {
+  let companies = arr.map(box => box.company);
+  let uniqueByObjFields = [...new Set(companies)]
+  lg('uniqueByObjFields', uniqueByObjFields)
 
-
-export const uniqueSet = (arr: number[]) => {
-  let out = new Set(arr);
-  lg('uniqueSet:', out, ', size:', out.size)
+  let objByField = arr.reduce((acc: any, x) => {
+    if (x.company.toLowerCase() === companyName.toLowerCase()) return [...acc, x]
+    return acc;
+  }, []);
+  lg('filterByObjStrKey:', objByField)
+}
+//-------------==
+type box = {
+  title: string,
+  author: string
+}
+export const filterDupOb1Array = (arr: box[]) => {
+  const unique = arr.filter((obj, index) => {
+    return index === arr.findIndex(o => obj.title === o.title);// index === foundIndex when there is only one unique match
+  });
+  lg('filterDupOb1Array unique:', unique)
+  return unique;
+}
+export const filterDupOb2Arrays = (arr1: box[], arr2: box[]) => {
+  let ids = new Set(arr1.map(({ title }) => title));
+  let arr2unique = filterDupOb1Array(arr2)
+  let out = arr2unique.filter(({ title }) => !ids.has(title));
+  lg('arr2unique:', arr2unique)
+  lg('filterDupOb2Arrays arr2unique-arr1unique:', out)
   return out;
 }
+//-------------==
+type eachWord = {
+  max: number,
+  word: string
+}
+export const filterByObjNumKey = (arr: eachWord[]) => {
+  lg('-------== filterByObjNumKey')
+  let out = arr.reduce((acc: any, x) => {
+    //lg('acc:', acc, 'x:', x)
+    //{max: number, word: string}
+    if (x.max > acc.max) return x;
+    return acc;
+  }, { max: 0, word: '' })
+  lg('filterByObjNumKey:', out)
+  return out;
+}
+
+//-------------==
 export const randomNumberArray = (arrayLength: number) => {
   var arr = new Array(arrayLength);
   for (var i = 0; i < arrayLength; i++) {

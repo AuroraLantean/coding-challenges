@@ -1,13 +1,13 @@
-import { strArraySort, arraySum, compareTwoNumArrays, countUniqueElements, strToIntArray, numArraySort, numArrayFindAbove, mostCommonChar, uniqueSet, mergeObjArray2, mergeDupObjArray, removeDupObjArray } from "./typescript/array";
+import { strArraySort, arraySum3, compareTwoNumArrays, uniqueSet, strToIntArray, numArraySort, numArrayFindAbove, mostCommonChar, mergeObjArray2, mergeDupObjArray, removeDupObjArray, filterByObjStrKey, filterByObjNumKey, numArrayFilter1, removeArrFromArr, filterDupOb1Array, filterDupOb2Arrays } from "./typescript/array";
 import { extraLongFactorials } from "./typescript/factorial";
 import { findPattern, fizzBuzz, roundDecimal, sumFromZero } from "./typescript/math";
-import { capitalize, firstRecurringChar, isPalindrome, longestWords, objMaxValue, objToArrays, reverseWords, sortWords, vowelCount, vowelCount2, wordCount, wordCountEach, wordCountEach2 } from "./typescript/string";
+import { capitalize, firstRecurringChar, isPalindrome, longestWords, objMaxValue, objToArrays, reverseWords, sortWords, vowelCount, vowelCount2, wordCount, charCount, charCount2, uniqueCharFromStr, uniqueCharFromStr2, charCountOnEachWord } from "./typescript/string";
 import { lg } from "./typescript/utils";
 
 const args = Bun.argv;
 const arg1 = args[2];//, arg2 = args[3];
 lg('arguments:', args, arg1);
-let inputs, out, obj, obj2, maxCount, array;
+let inputs, out: any, obj, obj2, maxCount, array;
 
 switch (arg1) {
   //MATH
@@ -24,16 +24,16 @@ switch (arg1) {
     fizzBuzz()
     break;
   case '2':
-    out = extraLongFactorials(0)//1
-    lg('out:', out)
-    out = extraLongFactorials(5)//120
-    lg('out:', out)
-    out = extraLongFactorials(10)//3628800
-    lg('out:', out)
-    out = extraLongFactorials(25)//15511210043330985984000000n
-    lg('out:', out)
-    out = extraLongFactorials(45)//119622220865480194561963161495657715064383733760000000000
-    lg('out:', out)
+    let oFacto = extraLongFactorials(0)//1
+    lg('oFacto:', oFacto)
+    oFacto = extraLongFactorials(5)//120
+    lg('oFacto:', oFacto)
+    oFacto = extraLongFactorials(10)//3628800
+    lg('oFacto:', oFacto)
+    oFacto = extraLongFactorials(25)//15511210043330985984000000n
+    lg('oFacto:', oFacto)
+    oFacto = extraLongFactorials(45)//119622220865480194561963161495657715064383733760000000000
+    lg('oFacto:', oFacto)
     break;
   case '3':
     break;
@@ -53,21 +53,25 @@ switch (arg1) {
   case '40':
     //var arr = [1, [2], [3, 4, [5]]];
     inputs = [5, 10, "+", "D", "C"]//30
-    out = arraySum(inputs)
+    arraySum3(inputs)
 
     inputs = [1000000001, 1000000002, 1000000003, 1000000004, 1000000005]//5000000015
-    out = arraySum(inputs)
+    arraySum3(inputs)
     break;
   case '41':
     let ar1 = [5, 6, "+", 7, "D"]
     let ar2 = [3, 6, 7, 10, "C"]
-    out = compareTwoNumArrays(ar1, ar2)
+    compareTwoNumArrays(ar1, ar2)
+
+    const arr1 = [1, 2, 3, 4, 5];
+    const arr2 = [2, 4];
+    removeArrFromArr(arr1, arr2)
     break;
   case '43':
     inputs = '1 1 2 2 9 8'
     isPalindrome(inputs)
     const intArray = strToIntArray(inputs)
-    countUniqueElements(intArray)
+    uniqueSet(intArray)
     sortWords('what early   today lo00gggg')
     longestWords('short early   what today')
     longestWords('short early   what todayyyyyy')
@@ -82,35 +86,51 @@ switch (arg1) {
     break;
   case '45':
     inputs = 'GeeksforGeeksGGr'
-    obj = wordCountEach(inputs)
-    //obj2 = wordCountEach2(inputs)
-    out = objToArrays(obj)
+    uniqueCharFromStr(inputs)
+    uniqueCharFromStr2(inputs)
+    obj = charCount(inputs)
+    obj2 = charCount2(inputs)
+    objToArrays(obj)
     maxCount = objMaxValue(obj)//max value is 4 so some duplicate chars are found
 
     inputs = 'aBcDEfg'
-    obj = wordCountEach(inputs)
-    out = objToArrays(obj)
+    uniqueCharFromStr(inputs)
+    obj = charCount(inputs)
+    objToArrays(obj)
     maxCount = objMaxValue(obj)//max value is 1 so all are unique
 
     inputs = 'federico'
-    out = firstRecurringChar(inputs)
-    lg("out: " + out)
+    let firstRecur = firstRecurringChar(inputs)
+    lg('firstRecur:', firstRecur)
     break;
   case '46':
     inputs = ["Banana", "Orange", "Apple", "Mango"];
     strArraySort(inputs);
     strArraySort(inputs, true);
 
-    inputs = [40, 100, 1, 5, 25, 10, 10, 10];
+    inputs = [13, 1, 6, 1, 3, -2, 4];
     uniqueSet(inputs)
     numArraySort(inputs)
-    numArraySort(inputs, true)//reverse order
-    numArrayFindAbove(inputs, 99)
+    numArrayFindAbove(inputs, 4)
+
+    inputs = [1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+    numArrayFilter1(inputs)
 
     inputs = ['a', 'b', 'c', 'a', 'b', 'b']
     mostCommonChar(inputs)
     break;
   case '47':
+    inputs = "JavaScript is the greatest programming languageeee available";
+    let out = charCountOnEachWord(inputs)
+    filterByObjNumKey(out)
+    break;
+  case '48':
+    break;
+  case '49':
+    break;
+  case '50':
+    break;
+  case '57':
     array = [{
       name: "foo1",
       value: "val1"
@@ -123,7 +143,7 @@ switch (arg1) {
     }];
     mergeObjArray2(array)
     break;
-  case '48':
+  case '58':
     array = [{ id: 1, name: "john" },
     { id: 1, name: "johnny" },
     { id: 2, name: "jane" },
@@ -131,6 +151,33 @@ switch (arg1) {
     { id: 3, name: "max" }];
     removeDupObjArray(array)
     mergeDupObjArray(array)
+    break;
+  case '59':
+    array = [{ title: 'iPhone 13', company: "Apple" },
+    { title: 'S23 Ultra', company: "Samsung" },
+    { title: 'iPhone 15 Pro Max', company: "Apple" },
+    { title: 'iPhone 14 Plus', company: "Apple" },
+    { title: 'Mate 60 Pro', company: "Huawei" }];
+    filterByObjStrKey(array, 'apple')
+
+    let books1 = [
+      { title: "Rust", author: "Bjarne" },
+      { title: "JavaScript", author: "James" },
+      { title: "Python", author: "Guido" },
+      { title: "JavaScript", author: "James" },
+    ];
+    filterDupOb1Array(books1)
+
+    let books2 = [
+      { title: "C++", author: "Bjarne" },
+      { title: "Zig", author: "James" },
+      { title: "Python", author: "Guido" },
+      { title: "Zig", author: "James" },
+    ];
+    filterDupOb2Arrays(books1, books2)
+
+    break;
+  case '9':
     break;
   case '9':
     break;
