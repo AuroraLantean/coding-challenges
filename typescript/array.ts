@@ -119,7 +119,22 @@ export const uniqueSet = (arr: number[]) => {
   lg('uniqueSet:', out, ', size:', out.size)
   return out;
 }
-
+export const findRepeatedItem = (nums: number[]) => {
+  let max = 1, pos = 0, value = -1;
+  let out = nums.reduce((acc: any, x, idx) => {
+    acc[x] = acc[x] ? { ...acc[x], amt: acc[x]['amt'] + 1 } : { amt: 1, idx }
+    let amt = acc[x].amt;
+    let place = acc[x].idx;
+    if (amt > max || (amt === max && place <= pos && amt > 1)) {
+      max = amt;
+      value = x;
+      pos = place;
+    }
+    return acc;
+  }, {})
+  lg('findRepeatedItem:', out, value)
+  return value;
+}
 export const mostCommonChar = (arr: string[]) => {
   const mapping = arr.reduce((acc: any, x) => {
     acc[x] = acc[x] ? acc[x] + 1 : 1;

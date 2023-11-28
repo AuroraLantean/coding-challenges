@@ -1,7 +1,7 @@
-import { strArraySort, arraySum3, compareTwoNumArrays, uniqueSet, strToIntArray, numArraySort, numArrayFindAbove, mostCommonChar, mergeObjArray2, mergeDupObjArray, removeDupObjArray, filterByObjStrKey, filterByObjNumKey, numArrayFilter1, removeArrFromArr, filterDupOb1Array, filterDupOb2Arrays } from "./typescript/array";
+import { strArraySort, arraySum3, compareTwoNumArrays, uniqueSet, strToIntArray, numArraySort, numArrayFindAbove, mostCommonChar, mergeObjArray2, mergeDupObjArray, removeDupObjArray, filterByObjStrKey, filterByObjNumKey, numArrayFilter1, removeArrFromArr, filterDupOb1Array, filterDupOb2Arrays, findRepeatedItem } from "./typescript/array";
 import { extraLongFactorials } from "./typescript/factorial";
-import { findPattern, fizzBuzz, roundDecimal, sumFromZero } from "./typescript/math";
-import { capitalize, firstRecurringChar, isPalindrome, longestWords, objMaxValue, objToArrays, reverseWords, sortWords, vowelCount, vowelCount2, wordCount, charCount, charCount2, uniqueCharFromStr, uniqueCharFromStr2, charCountOnEachWord } from "./typescript/string";
+import { findPattern, fizzBuzz, isPrime, roundDecimal, sumFromZero } from "./typescript/math";
+import { capitalize, firstRecurringChar, isPalindrome, longestWords, objMaxValue, objToArrays, reverseWords, sortWords, vowelCount, vowelCount2, wordCount, charCount, charCount2, uniqueCharFromStr, uniqueCharFromStr2, charCountOnEachWord, objToStr } from "./typescript/string";
 import { lg } from "./typescript/utils";
 
 const args = Bun.argv;
@@ -19,6 +19,11 @@ switch (arg1) {
     findPattern([2, 4, 6])
     findPattern([3, 9, 27])
     findPattern([3, 5, 14])
+
+    lg('isPrime:', isPrime(8))//should be false
+    lg('isPrime:', isPrime(11))//should be true
+    lg('isPrime:', isPrime(121))//should be false
+    lg('isPrime:', isPrime(127))//should be true
     break;
   case '1':
     fizzBuzz()
@@ -67,6 +72,22 @@ switch (arg1) {
     const arr2 = [2, 4];
     removeArrFromArr(arr1, arr2)
     break;
+  case '42':
+    inputs = [13, 1, 6, 1, 3, -2, 4];
+    uniqueSet(inputs)
+    numArraySort(inputs)
+    numArrayFindAbove(inputs, 4)
+
+    inputs = [1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+    numArrayFilter1(inputs)
+
+    inputs = [5, 2, 2, 1, 5]// should return 5
+    findRepeatedItem(inputs)
+    inputs = [6, 5, 5, 10, 10, 10]// should return 10
+    findRepeatedItem(inputs)
+    inputs = [3, 4, 1, 6, 10]// should return -1
+    findRepeatedItem(inputs)
+    break;
   case '43':
     inputs = '1 1 2 2 9 8'
     isPalindrome(inputs)
@@ -89,6 +110,7 @@ switch (arg1) {
     uniqueCharFromStr(inputs)
     uniqueCharFromStr2(inputs)
     obj = charCount(inputs)
+    objToStr(obj)
     obj2 = charCount2(inputs)
     objToArrays(obj)
     maxCount = objMaxValue(obj)//max value is 4 so some duplicate chars are found
@@ -107,14 +129,6 @@ switch (arg1) {
     inputs = ["Banana", "Orange", "Apple", "Mango"];
     strArraySort(inputs);
     strArraySort(inputs, true);
-
-    inputs = [13, 1, 6, 1, 3, -2, 4];
-    uniqueSet(inputs)
-    numArraySort(inputs)
-    numArrayFindAbove(inputs, 4)
-
-    inputs = [1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
-    numArrayFilter1(inputs)
 
     inputs = ['a', 'b', 'c', 'a', 'b', 'b']
     mostCommonChar(inputs)

@@ -7,7 +7,16 @@ export const reverseWords = (str: string) => {
   return out;
 }
 export const isPalindrome = (str: string) => {
-  const boo = reverseStr(str) === str;
+  let strNoSpace = str.split(' ').join();
+  let strRNoSpace = str.split('').reverse().join('');
+  const boo = strRNoSpace === strNoSpace;
+  lg('isPalindrome:', boo)
+}
+export const isPalindrome2 = (str: string) => {
+  //use regex to extract only characters and numbers
+  let str1 = str.match(/[a-z0-9]+/ig)?.join('').toLowerCase();//ignore cases, search all string
+  let str2 = str1?.split('').reverse().join('');
+  const boo = str1 === str2;
   lg('isPalindrome:', boo)
 }
 export const sortWords = (str: string) => {
@@ -71,7 +80,7 @@ export const wordCount = (s: string, str: string) => {
   return count;
 }
 export const charCount = (str: string) => {
-  let obj: { [key: string]: number } = {}
+  let obj: any = {};//{ [key: string]: number }
   str = str.replace(/\s+/g, '');// remove all spaces
   for (let ch of str) {
     if (!obj[ch]) obj[ch] = 1;
@@ -81,7 +90,7 @@ export const charCount = (str: string) => {
   return obj;
 }
 export const firstRecurringChar = (str: string) => {
-  let charCount: { [key: string]: number } = {};
+  let charCount: any = {};//{ [key: string]: number }
   str = str.replace(/\s+/g, '');// remove all spaces
   for (let char of str) {
     if (char in charCount) return char;
@@ -144,7 +153,8 @@ export const uniqueCharFromStr2 = (str: string) => {
   lg("uniqueCharFromStr2 unique:", unique, ', dup:', dup)
   return { unique, dup };
 }
-export const objToArrays = (obj: { [key: string]: number }) => {
+export const objToArrays = (obj: any) => {
+  //{ [key: string]: number }
   const values = [];
   const keys = [];
   for (let key in obj) {
@@ -155,14 +165,23 @@ export const objToArrays = (obj: { [key: string]: number }) => {
   return { keys, values };
 }
 
-export const objMaxValue = (obj: { [key: string]: number }) => {
+export const objToStr = (obj: any) => {
+  let out = ''
+  for (let key in obj) {
+    out += obj[key] + '' + key;
+  }
+  lg('objToStr:', out);
+  return out;
+}
+export const objMaxValue = (obj: any) => {
+  //{ [key: string]: number }
   let maxCharCount = 0;
   let maxCountChar = '';
-  for (let char in obj) {
-    if (obj[char] > maxCharCount) {
-      maxCharCount = obj[char]
-      maxCountChar = char;
-    }// else if (obj[char] === maxCharCount) { }
+  for (let key in obj) {
+    if (obj[key] > maxCharCount) {
+      maxCharCount = obj[key]
+      maxCountChar = key;//key is the char
+    }// else if (obj[key] === maxCharCount) { }
   }
   let out = { char: maxCountChar, count: maxCharCount };
   lg('objMaxValue:', out);
