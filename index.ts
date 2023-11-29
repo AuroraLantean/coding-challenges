@@ -1,7 +1,7 @@
-import { strArraySort, arraySum3, compareTwoNumArrays, uniqueSet, strToIntArray, numArraySort, numArrayFindAbove, mostCommonChar, mergeObjArray2, mergeDupObjArray, removeDupObjArray, filterByObjStrKey, filterByObjNumKey, numArrayFilter1, removeArrFromArr, filterDupOb1Array, filterDupOb2Arrays, findRepeatedItem } from "./typescript/array";
+import { strArraySort, arraySum3, compareTwoNumArrays, uniqueSet, strToIntArray, numArraySort, numArrayFindAbove, mostCommonChar, mergeObjArray2, mergeDupObjArray, removeDupObjArray, filterByObjStrKey, filterByObjNumKey, numArrayFilter1, removeArrFromArr, filterDupOb1Array, filterDupOb2Arrays, findRepeatedItem, sortedUnion } from "./typescript/array";
 import { extraLongFactorials } from "./typescript/factorial";
-import { findPattern, fizzBuzz, isPrime, roundDecimal, sumFromZero } from "./typescript/math";
-import { capitalize, firstRecurringChar, isPalindrome, longestWords, objMaxValue, objToArrays, reverseWords, sortWords, vowelCount, vowelCount2, wordCount, charCount, charCount2, uniqueCharFromStr, uniqueCharFromStr2, charCountOnEachWord, objToStr } from "./typescript/string";
+import { findPattern, fizzBuzz, generateFibonacciNumUntil, isFibonacciNumber, isPrime, roundDecimal, sumAllPrimes, sumFromZero, sumOddFibonacciNumber } from "./typescript/math";
+import { capitalize, firstRecurringChar, isPalindrome, longestWords, objMaxValue, objToArrays, reverseWords, sortWords, vowelCount, vowelCount2, wordCount, charCount, charCount2, uniqueCharFromStr, uniqueCharFromStr2, charCountOnEachWord, objToStr, getIndicesOf, getIndicesOf2 } from "./typescript/string";
 import { lg } from "./typescript/utils";
 
 const args = Bun.argv;
@@ -20,10 +20,24 @@ switch (arg1) {
     findPattern([3, 9, 27])
     findPattern([3, 5, 14])
 
-    lg('isPrime:', isPrime(8))//should be false
-    lg('isPrime:', isPrime(11))//should be true
-    lg('isPrime:', isPrime(121))//should be false
-    lg('isPrime:', isPrime(127))//should be true
+    lg('isPrime(2):', isPrime(2))//should be true
+    lg('isPrime(8):', isPrime(8))//should be false
+    lg('isPrime(11):', isPrime(11))//should be true
+    lg('isPrime(121):', isPrime(121))//should be false
+    lg('isPrime(127):', isPrime(127))//should be true
+    sumAllPrimes(10)//17
+    sumAllPrimes(977)//73156
+
+    generateFibonacciNumUntil(10)
+    isFibonacciNumber(591286729879)
+    isFibonacciNumber(6557470319842)
+
+    sumOddFibonacciNumber(1)
+    sumOddFibonacciNumber(4)
+    sumOddFibonacciNumber(10)
+    sumOddFibonacciNumber(1000)
+    sumOddFibonacciNumber(4000000)
+
     break;
   case '1':
     fizzBuzz()
@@ -87,6 +101,8 @@ switch (arg1) {
     findRepeatedItem(inputs)
     inputs = [3, 4, 1, 6, 10]// should return -1
     findRepeatedItem(inputs)
+    sortedUnion([1, 3, 2], [5, 2, 1, 4], [2, 1])
+    sortedUnion(['alice', 'bob', 'charlie'], ['alice', 'jane', 'bob', 'john'], ['bob', 'joe'])
     break;
   case '43':
     inputs = '1 1 2 2 9 8'
@@ -96,7 +112,7 @@ switch (arg1) {
     sortWords('what early   today lo00gggg')
     longestWords('short early   what today')
     longestWords('short early   what todayyyyyy')
-    capitalize('hello world') //=> 'Hello World'
+    capitalize('hElLo wOrLd') //=> 'Hello World'
     vowelCount('potatoes') //=> 3
     vowelCount2('potatoes') //=> 3
     break;
@@ -124,6 +140,14 @@ switch (arg1) {
     inputs = 'federico'
     let firstRecur = firstRecurringChar(inputs)
     lg('firstRecur:', firstRecur)
+
+    let indices = getIndicesOf("le", "I learned to play the Ukulele in Lebanon.");
+    indices = getIndicesOf("", "I learned to play the Ukulele in Lebanon.");
+    indices = getIndicesOf("action", "Abstraction is a reaction of a transaction");
+
+    indices = getIndicesOf2("le", "I learned to play the Ukulele in Lebanon.");
+    indices = getIndicesOf2("", "I learned to play the Ukulele in Lebanon.");
+
     break;
   case '46':
     inputs = ["Banana", "Orange", "Apple", "Mango"];

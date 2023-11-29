@@ -81,6 +81,23 @@ export const removeArrFromArr = (nums1: number[], nums2: number[]) => {
   return out;
 }
 
+//-----------------==
+//Sorted Union ;;; Rest Parameter ;;; Nested ;;;
+export const sortedUnion = (...args: any[][]) => {
+  lg('args:', args)
+  let out = [] as any[]
+  for (let arg of args) {
+    for (let n of arg) {
+      //lg('n:', n)
+      if (!out.includes(n)) {
+        out.push(n);
+      }
+    }
+  }
+  lg('sortedUnion:', out)
+  return out
+}
+//-----------------==
 export const arraySum = (nums: number[]) => {
   let out = nums.sort((a, b) => a - b)
 }

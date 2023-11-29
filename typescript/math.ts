@@ -32,19 +32,20 @@ export const fizzBuzz = (max = 20, n1 = 3, n2 = 5) => {
 
 export const sumFromZero = (num: number, dp = 0) => {
   const abs = Math.abs(num);
+  let limit;
   if (dp) {
-    num = roundDecimal(abs, dp);
+    limit = roundDecimal(abs, dp);
   } else {
-    num = Math.floor(abs);
+    limit = Math.floor(abs);
   }
-  lg("num:", num)
+  lg("limit:", limit)
   let out = 0;
-  for (var n = num; n > 0; n--) {
+  for (let n = limit; n > 0; n--) {
     lg(n)
     out += n;
   }
-  /*   if (num === 1) return 1;
-  for (var i = 0; i <= num; i++) {
+  /*   if (limit === 1) return 1;
+  for (let i = 0; i <= limit; i++) {
     numbers.push(i)
   }
   let out = numbers.reduce((a, b) => a + b); */
@@ -72,12 +73,66 @@ export const findPattern = (arr: number[]) => {
 export const isPrime = (num: number) => {
   if (num < 2) return false;
 
-  let root = Math.ceil(Math.sqrt(num))
+  let root = Math.sqrt(num);//Math.ceil
   for (let i = 2; i <= root; i++) {
     if (num % i === 0) return false;
   }
-/*   for (let i = 2; i < num; i++) {
-    if (num % i === 0) return false;
+  /*   for (let i = 2; i < num; i++) {
+      if (num % i === 0) return false;
+    }*/
+  //lg(`isPrime(${num}):`, num)
+  return true;
+}
+
+export const sumAllPrimes = (num: number, dp = 0) => {
+  let out = 0;
+  let limit = Math.floor(Math.abs(num));
+  lg("limit:", limit)
+  for (let n = limit; n > 1; n--) {
+    //lg(n)
+    if (isPrime(n)) {
+      //lg('is prime:', n)
+      out += n;
+    }
   }
- */  return true;
+  lg("sumAllPrimes:", out)
+  return out;
+}
+
+export const isPerfectSquare = (x: number) => {
+  let s = parseInt(Math.sqrt(x) + '');
+  return (s * s == x);
+}
+//it is a Fibonacci if and only if one or both of (5*n2 + 4) or (5*n2 – 4) is a perfect square 
+export const isFibonacciNumber = (n: number) => {
+  //0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144,
+  let out = isPerfectSquare(5 * n * n + 4) ||
+    isPerfectSquare(5 * n * n - 4);
+  lg('isFibonacciNumber:', out)
+  return out;
+}
+export const sumOddFibonacciNumber = (n: number) => {
+  let nums = generateFibonacciNumUntil(n)
+  let out = 0;
+  for (let n of nums) {
+    if (n % 2 === 1) out += n;
+  }
+  lg('sumOddFibonacciNumber', out)
+  return out;
+}
+export const generateFibonacciNumUntil = (num: number) => {
+  let limit = Math.floor(Math.abs(num));
+  let fn1 = 0, fn2 = 1, nextFibonacci;
+  let out = [fn1, fn2];
+
+  for (let i = 1; i <= limit; i++) {
+    //lg(i);
+    nextFibonacci = fn1 + fn2;
+    if (nextFibonacci >= limit) break;
+    out.push(nextFibonacci)
+    fn1 = fn2;
+    fn2 = nextFibonacci;
+  }
+  lg(`generateFibonacciNumUntil(${num}): ${out}`);
+  return out;
 }

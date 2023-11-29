@@ -45,10 +45,11 @@ export const longestWords = (str: string) => {
   lg('longestWords:', max)
   return max;
 }
+//Title Case in a sentence
 export const capitalize = (str: string) => {
   var words = str.trim().split(/\s+/g)
   let out = words.map(word => {
-    return word[0].toUpperCase() + word.substring(1, word.length)
+    return word[0].toUpperCase() + word.substring(1, word.length).toLowerCase()
   }).join(' ');
   lg('out:', out)
   return out;
@@ -202,4 +203,33 @@ export const checkString = (str: string) => {
   else {
     lg('The string does not start with S and does not end with G');
   }
+}
+
+//substring
+export const getIndicesOf = (searchStr: string, sourceStr: string, caseSensitive = false) => {
+  if (searchStr.length == 0) {
+    lg('getIndicesOf empty searchStr:', [])
+    return [];
+  }
+  let indices = [...sourceStr.matchAll(new RegExp(searchStr, 'gi'))].map(a => a.index)
+  lg('getIndicesOf indices:', indices)
+  return indices;
+}
+export const getIndicesOf2 = (searchStr: string, sourceStr: string, caseSensitive = false) => {
+  var searchStrLen = searchStr.length;
+  if (searchStrLen == 0) {
+    lg('getIndicesOf empty searchStr:', [])
+    return [];
+  }
+  var startIndex = 0, index, indices = [];
+  if (!caseSensitive) {
+    sourceStr = sourceStr.toLowerCase();
+    searchStr = searchStr.toLowerCase();
+  }
+  while ((index = sourceStr.indexOf(searchStr, startIndex)) > -1) {
+    indices.push(index);
+    startIndex = index + searchStrLen;
+  }
+  lg('getIndicesOf indices:', indices)
+  return indices;
 }
