@@ -1,7 +1,7 @@
-import { strArraySort, arraySum3, compareTwoNumArrays, uniqueSet, strToIntArray, numArraySort, numArrayFindAbove, mostCommonChar, mergeObjArray2, mergeDupObjArray, removeDupObjArray, filterByObjStrKey, filterByObjNumKey, numArrayFilter1, removeArrFromArr, filterDupOb1Array, filterDupOb2Arrays, findRepeatedItem, sortedUnion } from "./typescript/array";
+import { strArraySort, arraySum3, compareNumFromTwoArr, uniqueSet, strToIntArray, numArraySort, numArrayFindAbove, mostCommonChar, mergeObjArray2, mergeDupObjArray, removeDupObjArray, filterByObjValue1, filterByObjNumKey, numArrayFilter1, filterDupOb1Array, filterDupOb2Arrays, findRepeatedItem, uniqueOfArrays, compareTwoArr, filterByObjValues, uniqueOfArrays2, rangeSum, rangeSum2 } from "./typescript/array";
 import { extraLongFactorials } from "./typescript/factorial";
 import { findPattern, fizzBuzz, generateFibonacciNumUntil, isFibonacciNumber, isPrime, roundDecimal, sumAllPrimes, sumFromZero, sumOddFibonacciNumber } from "./typescript/math";
-import { capitalize, firstRecurringChar, isPalindrome, longestWords, objMaxValue, objToArrays, reverseWords, sortWords, vowelCount, vowelCount2, wordCount, charCount, charCount2, uniqueCharFromStr, uniqueCharFromStr2, charCountOnEachWord, objToStr, getIndicesOf, getIndicesOf2, missingChar, dnaPairing, replaceByBeforeCasing, pigLatin, pigLatin2 } from "./typescript/string";
+import { capitalize, firstRecurringChar, isPalindrome, longestWords, objMaxValue, objToArrays, reverseWords, sortWords, vowelCount, vowelCount2, wordCount, charCount, charCount2, uniqueCharFromStr, uniqueCharFromStr2, charCountOnEachWord, objToStr, getIndicesOf, getIndicesOf2, missingLetter, dnaPairing, replaceByBeforeCasing, pigLatin, pigLatin2, strToSpinalCase } from "./typescript/string";
 import { lg } from "./typescript/utils";
 
 const args = Bun.argv;
@@ -76,15 +76,23 @@ switch (arg1) {
 
     inputs = [1000000001, 1000000002, 1000000003, 1000000004, 1000000005]//5000000015
     arraySum3(inputs)
+
+    rangeSum2([1, 4])
+    rangeSum2([10, 5])
     break;
   case '41':
     let ar1 = [5, 6, "+", 7, "D"]
     let ar2 = [3, 6, 7, 10, "C"]
-    compareTwoNumArrays(ar1, ar2)
+    compareNumFromTwoArr(ar1, ar2)
 
-    const arr1 = [1, 2, 3, 4, 5];
-    const arr2 = [2, 4];
-    removeArrFromArr(arr1, arr2)
+    ar1 = [1, 2, 3, 4, 5], ar2 = [2, 4];
+    compareTwoArr(ar1, ar2)
+
+    ar1 = [1, 2, 3, 5], ar2 = [2, 4, 5, 6]
+    compareTwoArr(ar1, ar2)
+    ar1 = ['john', 'joe', 'jane', 'jimmy'], ar2 = ['john', 'james', 'jane', 'joshuwa']
+    compareTwoArr(ar1, ar2)
+
     break;
   case '42':
     inputs = [13, 1, 6, 1, 3, -2, 4];
@@ -101,8 +109,10 @@ switch (arg1) {
     findRepeatedItem(inputs)
     inputs = [3, 4, 1, 6, 10]// should return -1
     findRepeatedItem(inputs)
-    sortedUnion([1, 3, 2], [5, 2, 1, 4], [2, 1])
-    sortedUnion(['alice', 'bob', 'charlie'], ['alice', 'jane', 'bob', 'john'], ['bob', 'joe'])
+    uniqueOfArrays([1, 3, 2], [5, 2, 1, 4], [2, 1])
+    uniqueOfArrays2([1, 3, 2], [5, 2, 1, 4], [2, 1])
+    uniqueOfArrays(['alice', 'bob', 'charlie'], ['alice', 'jane', 'bob', 'john'], ['bob', 'joe'])
+    uniqueOfArrays2(['alice', 'bob', 'charlie'], ['alice', 'jane', 'bob', 'john'], ['bob', 'joe'])
     break;
   case '43':
     inputs = '1 1 2 2 9 8'
@@ -162,10 +172,10 @@ switch (arg1) {
     let out = charCountOnEachWord(inputs)
     filterByObjNumKey(out)
 
-    missingChar('abce')
-    missingChar('fghkl')
-    missingChar('stvwx')
-    missingChar('vwxyz')
+    missingLetter('abce')
+    missingLetter('fghkl')
+    missingLetter('stvwx')
+    missingLetter('vwxyz')
 
     dnaPairing('GCG')
     dnaPairing('ACT')
@@ -177,6 +187,12 @@ switch (arg1) {
     pigLatin2('algorithm')
     pigLatin2('schwartz')
     pigLatin2('rhythm')
+
+    strToSpinalCase('This Is Spinal Tap')
+    strToSpinalCase('thisIsSpinalTap')
+    strToSpinalCase('The_Andy_Griffith_Show')
+    strToSpinalCase('Teletubbies say Eh-oh')
+    strToSpinalCase('AllThe-small,iThings')
     break;
   case '48':
     break;
@@ -212,7 +228,7 @@ switch (arg1) {
     { title: 'iPhone 15 Pro Max', company: "Apple" },
     { title: 'iPhone 14 Plus', company: "Apple" },
     { title: 'Mate 60 Pro', company: "Huawei" }];
-    filterByObjStrKey(array, 'apple')
+    filterByObjValue1(array, 'apple')
 
     let books1 = [
       { title: "Rust", author: "Bjarne" },
@@ -229,6 +245,15 @@ switch (arg1) {
       { title: "Zig", author: "James" },
     ];
     filterDupOb2Arrays(books1, books2)
+
+    let arr = [{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }], target = { last: "Capulet" }
+    filterByObjValues(arr, target)
+
+    let arr2 = [{ first: "Romeo", middle: 'James', last: "Montague" }, { first: "Mercutio", middle: 'John', last: null }, { first: "Tyron", middle: 'Joe', last: "Capulet" }, { first: "Tybalt", middle: 'John', last: "Capulet" }], target2 = { last: "Capulet", middle: 'John' }
+    filterByObjValues(arr2, target2)
+
+    let arr3 = [{ "apple": 1 }, { "apple": 1 }, { "apple": 1, "bat": 2 }], target3 = { "apple": 1 }
+    filterByObjValues(arr3, target3)
 
     break;
   case '9':

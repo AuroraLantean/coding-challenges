@@ -100,7 +100,13 @@ export const pigLatin = (str: string) => {
 }
 export const pigLatin2 = (str: string) => {
   let ifVowelFirst = str.replace(/^[aeiou]\w*/, '$&way')
+  //^ to match the beginning of the string
+  //\w to match anything that is not a Latin alphabet, nor digits, nor underscore
+  // * to match zero or more time
+  //$& to insert the matched substring
   let ifConsonantOrVowelFirst = ifVowelFirst.replace(/(^[^aeiou]+)(\w*)/, '$2$1ay')
+  // + to match one or more time
+  //$2$1 to put matched group2 in front of group1
   lg('pigLatin2:', ifConsonantOrVowelFirst)
   return ifConsonantOrVowelFirst;
 }
@@ -266,29 +272,29 @@ export const getIndicesOf2 = (searchStr: string, sourceStr: string, caseSensitiv
   lg('getIndicesOf indices:', indices)
   return indices;
 }
-export const missingChar = (str: string) => {
+export const missingLetter = (str: string) => {
   let out;
   for (let i = 0; i < str.length - 1; i++) {
-    if (str.charCodeAt(i + 1) - str.charCodeAt(i) > 1) {
-      out = String.fromCharCode(str.charCodeAt(i) + 1)
+    let currCharCode = str.charCodeAt(i)
+    if (str.charCodeAt(i + 1) - currCharCode > 1) {
+      out = String.fromCharCode(currCharCode + 1)
     }
   }
   lg('missingChar:', out)
   return out;
 }
 
-export const pairing = (char: string) => {
-  if (char === 'A') return 'T'
-  else if (char === 'T') return 'A'
-  else if (char === 'C') return 'G'
-  else if (char === 'G') return 'C'
-  else { lg('invalid input'); return '' }
-}
 export const dnaPairing = (str: string) => {
-  let pairedArr = []
-  for (let char of str) {
-    pairedArr.push([char, pairing(char)]);
+  let dnaPairs = {
+    A: 'T', T: 'A', C: 'G', G: 'C',
   }
+  type DnaKey = 'A' | 'T' | 'C' | 'G';
+  let dnaArray = str.split('') as DnaKey[];
+  let pairedArr = dnaArray.map(x => [x, dnaPairs[x]])
+  /*   let pairedArr = []
+    for (let char of str) {
+      pairedArr.push([char, pairing(char)]);
+    } */
   lg('dnaPairing:', pairedArr)
   return pairedArr;
 }
@@ -303,4 +309,13 @@ export const replaceByBeforeCasing = (str: string, before: string, after: string
   let out = str.replace(before, after)
   lg('replaceFor:', out)
   return out;
+}
+
+//Spinal Tap Case
+export const strToSpinalCase = (str: string) => {
+  let unCameled = str.replace(/([a-z])([A-Z])/g, '$1 $2');
+  let dashReplacer = unCameled.replace(/[^A-Za-z-]/g, '-');// negated character class to match anything that is not enclosed in the []
+  let lower = dashReplacer.toLowerCase()
+  lg('strToSpinalCase unCamelCase:', lower)
+  //(): capture group
 }

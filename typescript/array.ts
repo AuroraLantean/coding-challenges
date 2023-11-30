@@ -3,7 +3,7 @@
  */
 const lg = console.log;
 
-export const compareTwoNumArrays = (ar1: any[], ar2: any[]) => {
+export const compareNumFromTwoArr = (ar1: any[], ar2: any[]) => {
   //Avoid input name collide with my variable name below by changing the input variable name!
   const lg = console.log;
 
@@ -69,38 +69,44 @@ export const numArrayFilter3 = (nums: number[]) => {
   lg('numArrayFilter3:', out)
   return out
 }
-//Remove elements that occur in one array from another
-export const removeArrFromArr = (nums1: number[], nums2: number[]) => {
-  const out = nums1.reduce((acc: any, curr) => {
-    if (nums2.includes(curr)) {
-      return acc;
-    }
-    return [...acc, curr];
-  }, []);
-  lg('removeArrFromArr:', out)
-  return out;
-}
+//-----------------== any type: seek and destroy
+export const compareTwoArr = (ar1: any[], ar2: any[]) => {
+  //ar2 or ...ar2 for different input structure!
+  lg('compareTwoArr inputs:', ar1, ar2)
+  let unique1 = ar1.filter(x => !ar2.includes(x));//Remove elements that occur in one array from another
 
-//-----------------==
-//Sorted Union ;;; Rest Parameter ;;; Nested ;;;
-export const sortedUnion = (...args: any[][]) => {
-  lg('args:', args)
-  let out = [] as any[]
-  for (let arg of args) {
+  let unique2 = ar2.filter(x => !ar1.includes(x));
+  let unique = [...unique1, ...unique2];
+  let duplicate = ar1.filter(x => ar2.includes(x));
+  lg('unique1:', unique1, ', unique2:', unique2, ', duplicate:', duplicate, ', unique:', unique)
+  return { unique1, unique2, duplicate };
+}
+//-----------------== Sorted Union ;;; Rest Parameter ;;; Variadic ;;; Nested ;;;
+export const uniqueOfArrays = (...args: any[]) => {
+  let combined = [].concat(...args);//destruture twice
+  //lg('args:', args, ', combined:', combined)
+  let uniqueArr = [] as any[]
+  combined.forEach(x => {
+    if (!uniqueArr.includes(x)) {
+      uniqueArr.push(x)
+    }
+  })
+  /*for (let arg of args) {
     for (let n of arg) {
-      //lg('n:', n)
-      if (!out.includes(n)) {
-        out.push(n);
+      if (!uniqueArr.includes(n)) {
+        uniqueArr.push(n);
       }
     }
-  }
-  lg('sortedUnion:', out)
-  return out
+  }*/
+  lg('uniqueOfArrays:', uniqueArr)
+  return uniqueArr
+}
+export const uniqueOfArrays2 = (...args: any[]) => {
+  let combined = [...new Set(args.flat())]
+  lg('uniqueOfArrays2:', combined)
+  return combined;
 }
 //-----------------==
-export const arraySum = (nums: number[]) => {
-  let out = nums.sort((a, b) => a - b)
-}
 export const arraySum3 = (inputs: any[]) => {
   //Avoid input name collide with my variable name below by changing the input variable name!
   const arr = [] as number[];//typescript!
@@ -127,6 +133,23 @@ export const arraySum3 = (inputs: any[]) => {
   return out;
 };
 
+//Sum of all numbers in a range
+export const rangeSum = (arr: number[]) => {
+  let array = Array.from({ length: Math.max(...arr) - Math.min(...arr) + 1 }, (_, index) => Math.min(...arr) + index)
+  lg('rangeSum:', array)
+  let sum = array.reduce((acc, x) => acc + x, 0)
+  lg('rangeSum:', sum)
+  return sum;
+}
+export const rangeSum2 = (arr: number[]) => {
+  let sum = 0;
+  for (let i = Math.min(...arr); i <= Math.max(...arr); i++) {
+    sum += i;
+  }
+  lg('rangeSum:', sum)
+  return sum;
+}
+//-----------------==
 export const makeNumArr = (num: number, value: any) => new Array(num).fill(value)//.map((_, i) => i + 1);
 
 export const strToIntArray = (arr: string) => arr.split(" ").map(num => parseInt(num))
@@ -208,12 +231,12 @@ export const mergeDupObjArray = (arr: obb[]): obb[] => {
   lg('mergeObjArray:', out)
   return out;
 }
-//-------------==
+//-------------== 
 type product = {
   title: string,
   company: string
 }
-export const filterByObjStrKey = (arr: product[], companyName: string) => {
+export const filterByObjValue1 = (arr: product[], companyName: string) => {
   let companies = arr.map(box => box.company);
   let uniqueByObjFields = [...new Set(companies)]
   lg('uniqueByObjFields', uniqueByObjFields)
@@ -222,7 +245,14 @@ export const filterByObjStrKey = (arr: product[], companyName: string) => {
     if (x.company.toLowerCase() === companyName.toLowerCase()) return [...acc, x]
     return acc;
   }, []);
-  lg('filterByObjStrKey:', objByField)
+  lg('filterByObjValue1:', objByField)
+}
+///-------------== Where Art Thou
+export const filterByObjValues = (arr: any[], target: any) => {
+  let targetKeys = Object.keys(target);
+  lg('filterByObjValues targetKeys:', targetKeys)
+  let f1 = arr.filter((item: any) => targetKeys.every(key => item[key] === target[key]))
+  lg('filterByObjValues:', f1)
 }
 //-------------==
 type box = {
