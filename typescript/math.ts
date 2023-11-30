@@ -84,15 +84,16 @@ export const isPrime = (num: number) => {
   return true;
 }
 
+// Sum All Primes
 export const sumAllPrimes = (num: number, dp = 0) => {
   let out = 0;
   let limit = Math.floor(Math.abs(num));
   lg("limit:", limit)
-  for (let n = limit; n > 1; n--) {
+  for (let i = 2; i <= limit; i++) {
     //lg(n)
-    if (isPrime(n)) {
+    if (isPrime(i)) {
       //lg('is prime:', n)
-      out += n;
+      out += i;
     }
   }
   lg("sumAllPrimes:", out)
@@ -122,17 +123,50 @@ export const sumOddFibonacciNumber = (n: number) => {
 }
 export const generateFibonacciNumUntil = (num: number) => {
   let limit = Math.floor(Math.abs(num));
-  let fn1 = 0, fn2 = 1, nextFibonacci;
-  let out = [fn1, fn2];
+  let x = 0, y = 1, next;
+  let out = [x, y];
 
   for (let i = 1; i <= limit; i++) {
     //lg(i);
-    nextFibonacci = fn1 + fn2;
-    if (nextFibonacci >= limit) break;
-    out.push(nextFibonacci)
-    fn1 = fn2;
-    fn2 = nextFibonacci;
+    next = x + y;
+    if (next >= limit) break;
+    out.push(next)
+    x = y;
+    y = next;
   }
   lg(`generateFibonacciNumUntil(${num}): ${out}`);
   return out;
+}
+
+// for [1, 3]... 6 can be divided by 1, 2, 3
+export const smallestCommonMultiple = ([a, b]: [number, number]) => {
+  let max = Math.max(a, b);
+  let min = Math.min(a, b);
+  let out = leastCommonMultiple(min, max)
+  lg("smallestCommonMultiple:", out)
+  return out;
+}
+export const leastCommonMultiple = (min: number, max: number) => {
+  function range(min: number, max: number) {
+    var arr = [];
+    for (var i = min; i <= max; i++) {
+      arr.push(i);
+    }
+    return arr;
+  }
+
+  function gcd(a: number, b: number): number {
+    return !b ? a : gcd(b, a % b);
+  }
+
+  function lcm(a: number, b: number) {
+    return (a * b) / gcd(a, b);
+  }
+
+  var multiple = min;
+  range(min, max).forEach(function (n) {
+    multiple = lcm(multiple, n);
+  });
+
+  return multiple;
 }

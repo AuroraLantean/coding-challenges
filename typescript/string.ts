@@ -298,6 +298,24 @@ export const dnaPairing = (str: string) => {
   lg('dnaPairing:', pairedArr)
   return pairedArr;
 }
+//Convert HTML Entities
+export const convertStrToHTML = (str: string) => {
+  type Keys = '&' | '<' | '>' | '"' | "'";
+  //type HtmlPairs = { [K in Keys]?: string }
+  let htmlPairs = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&apos;',
+  }
+  let splitStr = str.split('') as Keys[];
+  let changed = splitStr.map(x => htmlPairs[x] || x)
+  let changedStr = changed.join('')
+  lg("convertStrToHTML:", changedStr)
+  return changedStr;
+
+}
 export const replaceByBeforeCasing = (str: string, before: string, after: string) => {
   if (before[0] === before[0].toUpperCase()) {
     lg('before u:', before)
@@ -319,3 +337,5 @@ export const strToSpinalCase = (str: string) => {
   lg('strToSpinalCase unCamelCase:', lower)
   //(): capture group
 }
+
+

@@ -1,7 +1,7 @@
 import { strArraySort, arraySum3, compareNumFromTwoArr, uniqueSet, strToIntArray, numArraySort, numArrayFindAbove, mostCommonChar, mergeObjArray2, mergeDupObjArray, removeDupObjArray, filterByObjValue1, filterByObjNumKey, numArrayFilter1, filterDupOb1Array, filterDupOb2Arrays, findRepeatedItem, uniqueOfArrays, compareTwoArr, filterByObjValues, uniqueOfArrays2, rangeSum, rangeSum2 } from "./typescript/array";
 import { extraLongFactorials } from "./typescript/factorial";
-import { findPattern, fizzBuzz, generateFibonacciNumUntil, isFibonacciNumber, isPrime, roundDecimal, sumAllPrimes, sumFromZero, sumOddFibonacciNumber } from "./typescript/math";
-import { capitalize, firstRecurringChar, isPalindrome, longestWords, objMaxValue, objToArrays, reverseWords, sortWords, vowelCount, vowelCount2, wordCount, charCount, charCount2, uniqueCharFromStr, uniqueCharFromStr2, charCountOnEachWord, objToStr, getIndicesOf, getIndicesOf2, missingLetter, dnaPairing, replaceByBeforeCasing, pigLatin, pigLatin2, strToSpinalCase } from "./typescript/string";
+import { findPattern, fizzBuzz, generateFibonacciNumUntil, isFibonacciNumber, isPrime, roundDecimal, smallestCommonMultiple, sumAllPrimes, sumFromZero, sumOddFibonacciNumber } from "./typescript/math";
+import { capitalize, firstRecurringChar, isPalindrome, longestWords, objMaxValue, objToArrays, reverseWords, sortWords, vowelCount, vowelCount2, wordCount, charCount, charCount2, uniqueCharFromStr, uniqueCharFromStr2, charCountOnEachWord, objToStr, getIndicesOf, getIndicesOf2, missingLetter, dnaPairing, replaceByBeforeCasing, pigLatin, pigLatin2, strToSpinalCase, convertStrToHTML } from "./typescript/string";
 import { lg } from "./typescript/utils";
 
 const args = Bun.argv;
@@ -37,7 +37,6 @@ switch (arg1) {
     sumOddFibonacciNumber(10)
     sumOddFibonacciNumber(1000)
     sumOddFibonacciNumber(4000000)
-
     break;
   case '1':
     fizzBuzz()
@@ -55,6 +54,9 @@ switch (arg1) {
     lg('oFacto:', oFacto)
     break;
   case '3':
+    smallestCommonMultiple([1, 5])
+    smallestCommonMultiple([10, 2])
+    smallestCommonMultiple([13, 1])
     break;
   case '12':
     break;
@@ -125,6 +127,13 @@ switch (arg1) {
     capitalize('hElLo wOrLd') //=> 'Hello World'
     vowelCount('potatoes') //=> 3
     vowelCount2('potatoes') //=> 3
+
+    convertStrToHTML('Dolce & Gabbana < Pizza')
+    convertStrToHTML('Sixty > twelve')
+    convertStrToHTML('Stuff in "quotation marks"')
+    convertStrToHTML("Schindler's List")
+    convertStrToHTML("<>")
+
     break;
   case '44':
     inputs = "str1,str2,str3,str4"
