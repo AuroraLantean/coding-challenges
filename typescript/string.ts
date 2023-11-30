@@ -72,6 +72,38 @@ export const vowelCount2 = function (str: string) {
   lg('vowelCount2:', count)
   return count;
 }
+//Pig Latin
+export const pigLatin = (str: string) => {
+  const vowels = ["a", "e", "i", "o", "u"]
+  const end1 = 'ay'
+  const end2 = 'way'
+  let firstVowelIndex = -1
+  let newWord = ''
+  for (let i = 0; i < str.length; i++) {
+    if (vowels.includes(str[i])) {
+      firstVowelIndex = i
+      break;
+    }
+  }
+  if (firstVowelIndex === -1) {
+    newWord = str + end1
+  } else if (firstVowelIndex === 0) {
+    newWord = str + end2;
+  } else {
+    let consonantCluster = str.slice(0, firstVowelIndex);
+    let theRest = str.slice(firstVowelIndex)
+    newWord = theRest + consonantCluster + end1;
+  }
+  lg('pigLatin:', newWord)
+  return newWord;
+  //let firstChar = str.slice(0, 1)
+}
+export const pigLatin2 = (str: string) => {
+  let ifVowelFirst = str.replace(/^[aeiou]\w*/, '$&way')
+  let ifConsonantOrVowelFirst = ifVowelFirst.replace(/(^[^aeiou]+)(\w*)/, '$2$1ay')
+  lg('pigLatin2:', ifConsonantOrVowelFirst)
+  return ifConsonantOrVowelFirst;
+}
 export const wordCount = (s: string, str: string) => {
   let count = str.split(s).length - 1 //Split not recommended as it is resource hungry. It allocates new instances of 'Array' for each match. Don't try it for a >100MB file via FileReader
 
@@ -80,6 +112,7 @@ export const wordCount = (s: string, str: string) => {
   lg('count:', count)
   return count;
 }
+
 export const charCount = (str: string) => {
   let obj: any = {};//{ [key: string]: number }
   str = str.replace(/\s+/g, '');// remove all spaces
@@ -232,4 +265,42 @@ export const getIndicesOf2 = (searchStr: string, sourceStr: string, caseSensitiv
   }
   lg('getIndicesOf indices:', indices)
   return indices;
+}
+export const missingChar = (str: string) => {
+  let out;
+  for (let i = 0; i < str.length - 1; i++) {
+    if (str.charCodeAt(i + 1) - str.charCodeAt(i) > 1) {
+      out = String.fromCharCode(str.charCodeAt(i) + 1)
+    }
+  }
+  lg('missingChar:', out)
+  return out;
+}
+
+export const pairing = (char: string) => {
+  if (char === 'A') return 'T'
+  else if (char === 'T') return 'A'
+  else if (char === 'C') return 'G'
+  else if (char === 'G') return 'C'
+  else { lg('invalid input'); return '' }
+}
+export const dnaPairing = (str: string) => {
+  let pairedArr = []
+  for (let char of str) {
+    pairedArr.push([char, pairing(char)]);
+  }
+  lg('dnaPairing:', pairedArr)
+  return pairedArr;
+}
+export const replaceByBeforeCasing = (str: string, before: string, after: string) => {
+  if (before[0] === before[0].toUpperCase()) {
+    lg('before u:', before)
+    after = after[0].toUpperCase() + after.slice(1)
+  } else {
+    lg('before l:', before)
+    after = after[0].toLowerCase() + after.slice(1)
+  }
+  let out = str.replace(before, after)
+  lg('replaceFor:', out)
+  return out;
 }

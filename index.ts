@@ -1,7 +1,7 @@
 import { strArraySort, arraySum3, compareTwoNumArrays, uniqueSet, strToIntArray, numArraySort, numArrayFindAbove, mostCommonChar, mergeObjArray2, mergeDupObjArray, removeDupObjArray, filterByObjStrKey, filterByObjNumKey, numArrayFilter1, removeArrFromArr, filterDupOb1Array, filterDupOb2Arrays, findRepeatedItem, sortedUnion } from "./typescript/array";
 import { extraLongFactorials } from "./typescript/factorial";
 import { findPattern, fizzBuzz, generateFibonacciNumUntil, isFibonacciNumber, isPrime, roundDecimal, sumAllPrimes, sumFromZero, sumOddFibonacciNumber } from "./typescript/math";
-import { capitalize, firstRecurringChar, isPalindrome, longestWords, objMaxValue, objToArrays, reverseWords, sortWords, vowelCount, vowelCount2, wordCount, charCount, charCount2, uniqueCharFromStr, uniqueCharFromStr2, charCountOnEachWord, objToStr, getIndicesOf, getIndicesOf2 } from "./typescript/string";
+import { capitalize, firstRecurringChar, isPalindrome, longestWords, objMaxValue, objToArrays, reverseWords, sortWords, vowelCount, vowelCount2, wordCount, charCount, charCount2, uniqueCharFromStr, uniqueCharFromStr2, charCountOnEachWord, objToStr, getIndicesOf, getIndicesOf2, missingChar, dnaPairing, replaceByBeforeCasing, pigLatin, pigLatin2 } from "./typescript/string";
 import { lg } from "./typescript/utils";
 
 const args = Bun.argv;
@@ -161,6 +161,22 @@ switch (arg1) {
     inputs = "JavaScript is the greatest programming languageeee available";
     let out = charCountOnEachWord(inputs)
     filterByObjNumKey(out)
+
+    missingChar('abce')
+    missingChar('fghkl')
+    missingChar('stvwx')
+    missingChar('vwxyz')
+
+    dnaPairing('GCG')
+    dnaPairing('ACT')
+
+    replaceByBeforeCasing('Go to the store', 'store', 'Mall')
+    replaceByBeforeCasing('Go to the Store', 'Store', 'mall')
+
+    pigLatin2('consonant')
+    pigLatin2('algorithm')
+    pigLatin2('schwartz')
+    pigLatin2('rhythm')
     break;
   case '48':
     break;
