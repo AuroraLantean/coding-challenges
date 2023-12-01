@@ -170,3 +170,23 @@ export const leastCommonMultiple = (min: number, max: number) => {
 
   return multiple;
 }
+
+/*Map the debris. According to Kepler's Third Law, the orbital period T of two point masses orbiting each other in a circular or elliptic orbit is: 
+T = 2π sqrt(axis^3/μ) where axis is the orbit's semi-major axis; μ = GM is the standard gravitational parameter
+G is the gravitational constant,
+M is the mass of the more massive body. */
+type satellite = {
+  name: string
+  avgAlt: number
+}
+export const keplerThirdLaw = (arr: satellite[]) => {
+  const GM = 398600.4418;
+  const earthRadius = 6367.4447;
+  let out = arr.map(obj => {
+    let axis = obj.avgAlt + earthRadius;
+    let orbitalPeriod = Math.round(2 * Math.PI * Math.sqrt(axis ** 3 / GM))
+    return { name: obj.name, orbitalPeriod }
+  })
+  lg('keplerThirdLaw:', out)
+  return out;
+}

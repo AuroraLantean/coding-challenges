@@ -1,6 +1,6 @@
 import { strArraySort, arraySum3, compareNumFromTwoArr, uniqueSet, strToIntArray, numArraySort, numArrayFindAbove, mostCommonChar, mergeObjArray2, mergeDupObjArray, removeDupObjArray, filterByObjValue1, filterByObjNumKey, numArrayFilter1, filterDupOb1Array, filterDupOb2Arrays, findRepeatedItem, uniqueOfArrays, compareTwoArr, filterByObjValues, uniqueOfArrays2, rangeSum, rangeSum2, sliceArray, flattenArray, checkTruthy } from "./typescript/array";
 import { factorialsBigint, numOrFunc } from "./typescript/recursive";
-import { findPattern, fizzBuzz, generateFibonacciNumUntil, isFibonacciNumber, isPrime, roundDecimal, smallestCommonMultiple, sumAllPrimes, sumFromZero, sumOddFibonacciNumber } from "./typescript/math";
+import { findPattern, fizzBuzz, generateFibonacciNumUntil, isFibonacciNumber, isPrime, keplerThirdLaw, roundDecimal, smallestCommonMultiple, sumAllPrimes, sumFromZero, sumOddFibonacciNumber } from "./typescript/math";
 import { capitalize, firstRecurringChar, isPalindrome, longestWords, objMaxValue, objToArrays, reverseWords, sortWords, vowelCount, vowelCount2, wordCount, charCount, charCount2, uniqueCharFromStr, uniqueCharFromStr2, charCountOnEachWord, objToStr, getIndicesOf, getIndicesOf2, missingLetter, dnaPairing, replaceByBeforeCasing, pigLatin, pigLatin2, strToSpinalCase, convertStrToHTML, translateBinaryCode } from "./typescript/string";
 import { lg } from "./typescript/utils";
 import { extendObj, Person, objThis, User } from "./typescript/objects";
@@ -58,6 +58,8 @@ switch (arg1) {
     smallestCommonMultiple([1, 5])
     smallestCommonMultiple([10, 2])
     smallestCommonMultiple([13, 1])
+
+    keplerThirdLaw([{ name: 'sputnik', avgAlt: 35873.5553 }])
     break;
   case '12':
     break;
