@@ -1,7 +1,7 @@
-import { strArraySort, arraySum3, compareNumFromTwoArr, uniqueSet, strToIntArray, numArraySort, numArrayFindAbove, mostCommonChar, mergeObjArray2, mergeDupObjArray, removeDupObjArray, filterByObjValue1, filterByObjNumKey, numArrayFilter1, filterDupOb1Array, filterDupOb2Arrays, findRepeatedItem, uniqueOfArrays, compareTwoArr, filterByObjValues, uniqueOfArrays2, rangeSum, rangeSum2 } from "./typescript/array";
+import { strArraySort, arraySum3, compareNumFromTwoArr, uniqueSet, strToIntArray, numArraySort, numArrayFindAbove, mostCommonChar, mergeObjArray2, mergeDupObjArray, removeDupObjArray, filterByObjValue1, filterByObjNumKey, numArrayFilter1, filterDupOb1Array, filterDupOb2Arrays, findRepeatedItem, uniqueOfArrays, compareTwoArr, filterByObjValues, uniqueOfArrays2, rangeSum, rangeSum2, sliceArray, flattenArray } from "./typescript/array";
 import { extraLongFactorials } from "./typescript/factorial";
 import { findPattern, fizzBuzz, generateFibonacciNumUntil, isFibonacciNumber, isPrime, roundDecimal, smallestCommonMultiple, sumAllPrimes, sumFromZero, sumOddFibonacciNumber } from "./typescript/math";
-import { capitalize, firstRecurringChar, isPalindrome, longestWords, objMaxValue, objToArrays, reverseWords, sortWords, vowelCount, vowelCount2, wordCount, charCount, charCount2, uniqueCharFromStr, uniqueCharFromStr2, charCountOnEachWord, objToStr, getIndicesOf, getIndicesOf2, missingLetter, dnaPairing, replaceByBeforeCasing, pigLatin, pigLatin2, strToSpinalCase, convertStrToHTML } from "./typescript/string";
+import { capitalize, firstRecurringChar, isPalindrome, longestWords, objMaxValue, objToArrays, reverseWords, sortWords, vowelCount, vowelCount2, wordCount, charCount, charCount2, uniqueCharFromStr, uniqueCharFromStr2, charCountOnEachWord, objToStr, getIndicesOf, getIndicesOf2, missingLetter, dnaPairing, replaceByBeforeCasing, pigLatin, pigLatin2, strToSpinalCase, convertStrToHTML, translateBinaryCode } from "./typescript/string";
 import { lg } from "./typescript/utils";
 
 const args = Bun.argv;
@@ -73,11 +73,9 @@ switch (arg1) {
 
   case '40':
     //var arr = [1, [2], [3, 4, [5]]];
-    inputs = [5, 10, "+", "D", "C"]//30
-    arraySum3(inputs)
+    arraySum3([5, 10, "+", "D", "C"])//30
 
-    inputs = [1000000001, 1000000002, 1000000003, 1000000004, 1000000005]//5000000015
-    arraySum3(inputs)
+    arraySum3([1000000001, 1000000002, 1000000003, 1000000004, 1000000005])//5000000015
 
     rangeSum2([1, 4])
     rangeSum2([10, 5])
@@ -94,6 +92,13 @@ switch (arg1) {
     compareTwoArr(ar1, ar2)
     ar1 = ['john', 'joe', 'jane', 'jimmy'], ar2 = ['john', 'james', 'jane', 'joshuwa']
     compareTwoArr(ar1, ar2)
+
+    sliceArray([3, 1, 2, 4], (n) => n >= 3)
+
+    flattenArray([1, [2], [3, [[4]]]])
+    flattenArray([[["a"]], [["b"]]])
+    flattenArray([1, [], [3, [[4]]]])
+    flattenArray([1, {}, [3, [[4]]]])
 
     break;
   case '42':
@@ -202,6 +207,9 @@ switch (arg1) {
     strToSpinalCase('The_Andy_Griffith_Show')
     strToSpinalCase('Teletubbies say Eh-oh')
     strToSpinalCase('AllThe-small,iThings')
+
+    translateBinaryCode("01000001 01110010 01100101 01101110 00100111 01110100 00100000 01100010 01101111 01101110 01100110 01101001 01110010 01100101 01110011 00100000 01100110 01110101 01101110 00100001 00111111")
+    translateBinaryCode("01001001 00100000 01101100 01101111 01110110 01100101 00100000 01000110 01110010 01100101 01100101 01000011 01101111 01100100 01100101 01000011 01100001 01101101 01110000 00100001")
     break;
   case '48':
     break;

@@ -329,7 +329,7 @@ export const replaceByBeforeCasing = (str: string, before: string, after: string
   return out;
 }
 
-//Spinal Tap Case
+//Spinal Tap Case ;;; Regex ;;;
 export const strToSpinalCase = (str: string) => {
   let unCameled = str.replace(/([a-z])([A-Z])/g, '$1 $2');
   let dashReplacer = unCameled.replace(/[^A-Za-z-]/g, '-');// negated character class to match anything that is not enclosed in the []
@@ -338,4 +338,10 @@ export const strToSpinalCase = (str: string) => {
   //(): capture group
 }
 
-
+export const translateBinaryCode = (str: string) => {
+  let strArray = str.split(' ');
+  let charArr = strArray.map(x => String.fromCharCode(parseInt(x, 2)));
+  let out = charArr.join('');
+  lg('translateBinaryCode:', out)
+  return out;
+}

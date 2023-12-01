@@ -2,7 +2,7 @@
  * make new input arguments for easy copying and pasting into real tests
  */
 const lg = console.log;
-
+//-----------------== Number Array
 export const compareNumFromTwoArr = (ar1: any[], ar2: any[]) => {
   //Avoid input name collide with my variable name below by changing the input variable name!
   const lg = console.log;
@@ -69,7 +69,17 @@ export const numArrayFilter3 = (nums: number[]) => {
   lg('numArrayFilter3:', out)
   return out
 }
-//-----------------== any type: seek and destroy
+//-------------==
+export const randomNumberArray = (arrayLength: number) => {
+  var arr = new Array(arrayLength);
+  for (var i = 0; i < arrayLength; i++) {
+    arr[i] = Math.random();
+  }
+  let out = arr.sort()
+  lg('out:', out)
+  return out;
+}
+//-----------------== any type array: seek and destroy
 export const compareTwoArr = (ar1: any[], ar2: any[]) => {
   //ar2 or ...ar2 for different input structure!
   lg('compareTwoArr inputs:', ar1, ar2)
@@ -81,7 +91,7 @@ export const compareTwoArr = (ar1: any[], ar2: any[]) => {
   lg('unique1:', unique1, ', unique2:', unique2, ', duplicate:', duplicate, ', unique:', unique)
   return { unique1, unique2, duplicate };
 }
-//-----------------== Sorted Union ;;; Rest Parameter ;;; Variadic ;;; Nested ;;;
+//------== Sorted Union ;;; Rest Parameter ;;; Variadic ;;; Nested ;;;
 export const uniqueOfArrays = (...args: any[]) => {
   let combined = [].concat(...args);//destruture twice
   //lg('args:', args, ', combined:', combined)
@@ -106,33 +116,61 @@ export const uniqueOfArrays2 = (...args: any[]) => {
   lg('uniqueOfArrays2:', combined)
   return combined;
 }
-//-----------------==
+//------== Drop it
+export const sliceArray = (arr: any, func: (x: any) => boolean) => {
+  let out: any[] = [];
+  arr.sort()
+  //arr.sort((a:any, b:any) => a - b)
+  for (let i = 0; i < arr.length; i++) {
+    if (func(arr[i])) {
+      out = arr.slice(i)
+      break;
+    }
+  }
+  lg('sliceArray:', out)
+  return out;
+}
+//------== Flatten Nested Array: StreamRoller
+export const flattenArray = (arr: any[]) => {
+  let out: any[] = []
+  const flatten = (x: any) => {
+    if (Array.isArray(x)) {
+      x.forEach(flatten)
+    } else {
+      out.push(x)
+    }
+  }
+  arr.forEach(flatten)
+  lg('flattenArray:', out)
+  return out;
+}
+
+//-----------------== Number Array: Sum
 export const arraySum3 = (inputs: any[]) => {
   //Avoid input name collide with my variable name below by changing the input variable name!
-  const arr = [] as number[];//typescript!
+  const out = [] as number[];//typescript!
   const lg = console.log;
 
   for (let i = 0; i < inputs.length; i++) {
     let box = inputs[i];
     if (!isNaN(parseInt(box))) {
-      arr.push(parseInt(box))
+      out.push(parseInt(box))
     } else if (box === "+") {
-      const sum = arr[i - 1] + arr[i - 2]
-      arr.push(sum)
+      const sum = out[i - 1] + out[i - 2]
+      out.push(sum)
     } else if (box === "D") {
-      arr.push(2 * arr[i - 1])
+      out.push(2 * out[i - 1])
     } else if (box === "C") {
-      arr.pop()
+      out.pop()
     } else {
       lg("skip invalid element")
     }
-    lg('array:', arr)
   }
-  const out = arr.reduce((sum, box, index) => sum + box)
   lg('out:', out)
-  return out;
+  const sum = out.reduce((sum, box, index) => sum + box)
+  lg('sum:', sum)
+  return sum;
 };
-
 //Sum of all numbers in a range
 export const rangeSum = (arr: number[]) => {
   let array = Array.from({ length: Math.max(...arr) - Math.min(...arr) + 1 }, (_, index) => Math.min(...arr) + index)
@@ -149,7 +187,7 @@ export const rangeSum2 = (arr: number[]) => {
   lg('rangeSum:', sum)
   return sum;
 }
-//-----------------==
+//------== Number Array: Frequency
 export const makeNumArr = (num: number, value: any) => new Array(num).fill(value)//.map((_, i) => i + 1);
 
 export const strToIntArray = (arr: string) => arr.split(" ").map(num => parseInt(num))
@@ -175,6 +213,7 @@ export const findRepeatedItem = (nums: number[]) => {
   lg('findRepeatedItem:', out, value)
   return value;
 }
+//-----------------== Array of String
 export const mostCommonChar = (arr: string[]) => {
   const mapping = arr.reduce((acc: any, x) => {
     acc[x] = acc[x] ? acc[x] + 1 : 1;
@@ -187,7 +226,7 @@ export const mostCommonChar = (arr: string[]) => {
   lg('mostCommonChar:', out)
   return out;
 }
-//-------------== Array of Objects
+//-----------------== Array of Objects
 type obj = {
   name: string,
   value: string | string[]
@@ -291,13 +330,4 @@ export const filterByObjNumKey = (arr: eachWord[]) => {
   return out;
 }
 
-//-------------==
-export const randomNumberArray = (arrayLength: number) => {
-  var arr = new Array(arrayLength);
-  for (var i = 0; i < arrayLength; i++) {
-    arr[i] = Math.random();
-  }
-  let out = arr.sort()
-  lg('out:', out)
-  return out;
-}
+
