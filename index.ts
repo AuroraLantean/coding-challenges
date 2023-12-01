@@ -1,8 +1,9 @@
-import { strArraySort, arraySum3, compareNumFromTwoArr, uniqueSet, strToIntArray, numArraySort, numArrayFindAbove, mostCommonChar, mergeObjArray2, mergeDupObjArray, removeDupObjArray, filterByObjValue1, filterByObjNumKey, numArrayFilter1, filterDupOb1Array, filterDupOb2Arrays, findRepeatedItem, uniqueOfArrays, compareTwoArr, filterByObjValues, uniqueOfArrays2, rangeSum, rangeSum2, sliceArray, flattenArray } from "./typescript/array";
-import { extraLongFactorials } from "./typescript/factorial";
+import { strArraySort, arraySum3, compareNumFromTwoArr, uniqueSet, strToIntArray, numArraySort, numArrayFindAbove, mostCommonChar, mergeObjArray2, mergeDupObjArray, removeDupObjArray, filterByObjValue1, filterByObjNumKey, numArrayFilter1, filterDupOb1Array, filterDupOb2Arrays, findRepeatedItem, uniqueOfArrays, compareTwoArr, filterByObjValues, uniqueOfArrays2, rangeSum, rangeSum2, sliceArray, flattenArray, checkTruthy } from "./typescript/array";
+import { factorialsBigint, numOrFunc } from "./typescript/recursive";
 import { findPattern, fizzBuzz, generateFibonacciNumUntil, isFibonacciNumber, isPrime, roundDecimal, smallestCommonMultiple, sumAllPrimes, sumFromZero, sumOddFibonacciNumber } from "./typescript/math";
 import { capitalize, firstRecurringChar, isPalindrome, longestWords, objMaxValue, objToArrays, reverseWords, sortWords, vowelCount, vowelCount2, wordCount, charCount, charCount2, uniqueCharFromStr, uniqueCharFromStr2, charCountOnEachWord, objToStr, getIndicesOf, getIndicesOf2, missingLetter, dnaPairing, replaceByBeforeCasing, pigLatin, pigLatin2, strToSpinalCase, convertStrToHTML, translateBinaryCode } from "./typescript/string";
 import { lg } from "./typescript/utils";
+import { extendObj, Person, objThis, User } from "./typescript/objects";
 
 const args = Bun.argv;
 const arg1 = args[2];//, arg2 = args[3];
@@ -42,15 +43,15 @@ switch (arg1) {
     fizzBuzz()
     break;
   case '2':
-    let oFacto = extraLongFactorials(0)//1
+    let oFacto = factorialsBigint(0)//1
     lg('oFacto:', oFacto)
-    oFacto = extraLongFactorials(5)//120
+    oFacto = factorialsBigint(5)//120
     lg('oFacto:', oFacto)
-    oFacto = extraLongFactorials(10)//3628800
+    oFacto = factorialsBigint(10)//3628800
     lg('oFacto:', oFacto)
-    oFacto = extraLongFactorials(25)//15511210043330985984000000n
+    oFacto = factorialsBigint(25)//15511210043330985984000000n
     lg('oFacto:', oFacto)
-    oFacto = extraLongFactorials(45)//119622220865480194561963161495657715064383733760000000000
+    oFacto = factorialsBigint(45)//119622220865480194561963161495657715064383733760000000000
     lg('oFacto:', oFacto)
     break;
   case '3':
@@ -144,6 +145,8 @@ switch (arg1) {
     inputs = "str1,str2,str3,str4"
     wordCount(",", inputs)
     wordCount("str", inputs)
+
+    reverseWords("Welcome to JavaScript in this Guide")
     break;
   case '45':
     inputs = 'GeeksforGeeksGGr'
@@ -216,8 +219,6 @@ switch (arg1) {
   case '49':
     break;
   case '50':
-    break;
-  case '57':
     array = [{
       name: "foo1",
       value: "val1"
@@ -230,7 +231,7 @@ switch (arg1) {
     }];
     mergeObjArray2(array)
     break;
-  case '58':
+  case '51':
     array = [{ id: 1, name: "john" },
     { id: 1, name: "johnny" },
     { id: 2, name: "jane" },
@@ -239,7 +240,7 @@ switch (arg1) {
     removeDupObjArray(array)
     mergeDupObjArray(array)
     break;
-  case '59':
+  case '52':
     array = [{ title: 'iPhone 13', company: "Apple" },
     { title: 'S23 Ultra', company: "Samsung" },
     { title: 'iPhone 15 Pro Max', company: "Apple" },
@@ -271,53 +272,76 @@ switch (arg1) {
 
     let arr3 = [{ "apple": 1 }, { "apple": 1 }, { "apple": 1, "bat": 2 }], target3 = { "apple": 1 }
     filterByObjValues(arr3, target3)
+    break;
+  case '53':
+    checkTruthy([{ name: "Quincy", role: "Founder" }, { name: "Camperbot", role: "" }], "role")// truthy of "" == false
+    checkTruthy([{ name: "Pikachu", number: 25 }, { name: "Togepi", number: 0 }], "number")//trythy of 0 == false
 
+    checkTruthy([{ name: "john", users: [{ name: "Quincy" }, { name: "Naomi" }] }, { name: "", users: [] }], "users")// truthy of [] == true
+
+    checkTruthy([{ id: 1, data: { url: "https", name: "john" } }, { id: null, data: {} }], "data")// truthy of {} == true
+    checkTruthy([{ id: 1, data: { url: "https", name: "john" } }, { id: null, data: {} }], "id")// truthy of null == false
+
+    numOrFunc(2.67, 3)//5.67
+    numOrFunc("2", 3)//undefined
+    numOrFunc(5, undefined)//undefined
+    numOrFunc('hello')//undefined
+    numOrFunc(5)(7)//12
+    numOrFunc(2)([3])//undefined
+    numOrFunc()//undefined
     break;
-  case '9':
+  case '54':
     break;
-  case '9':
+  case '55':
     break;
+  case '56':
+    break;
+  case '57':
+    break;
+  case '60':
+    objThis()
+    extendObj()
+
+    const bob = new (Person as any)('Bob', 'Ross')
+    lg('Bob', bob)
+    lg(Object.keys(Person).length)//should be 6
+    lg('firstName:', bob.getFirstName())
+    lg('lastName:', bob.getLastName())
+    lg('fullName:', bob.getFullName())
+    bob.setFirstName('Haskell')
+    lg('firstName:', bob.getFirstName())
+    bob.setLastName('Curry')
+    lg('firstName:', bob.getLastName())
+    bob.setFullName('Emily Martinez', 'de la Rosa')
+    lg('firstName:', bob.getFirstName())
+    lg('lastName:', bob.getLastName())
+    lg('fullName:', bob.getFullName())
+
+    const user1 = new User("John", 'Doe', 30, 'abc123', 'abudabi');
+    lg('Class User:', user1.first, user1.last, user1.age)
+    lg('fullname:', user1.getFullname())
+    lg('private userId:', user1.getUserId())
+    user1.sayHello()
+    user1.setFirstName('Joe')
+    lg('firstName:', user1.first)
+    lg('constant1:', User.constant1)
+    break;
+  case '61':
+    break;
+  case '62':
+    break;
+
   case '70':
-    inputs = "Welcome to JavaScript in this Guide"
-    reverseWords(inputs)
     break;
   case '100':
     lg(foo);//no error. value === undefined
     var foo = 1;//ONLY var declaration and function declaration will bubble up; Not for let nor const
     break;
   case '101':
-    const obj3 = {
-      mesg: "Hello World",
-      getMesg() { const mesg = "haha"; return this.mesg },
-    }
-    lg(obj3.getMesg())//this inside objects will point to that object
-    //const name = 'alice'
-    var name = 'bob'
-    class Pet {
-      name: string;
-      constructor(name: string) { this.name = name; }
-      getName = () => this.name;//arrow functions inherit context from their parents!
-      getName2 = function () { this.name; }//older functions inherit context from Global object
-      getName3 = function () { return this.name; }
-    }
-    const cat = new Pet("Fluffy")
-    lg('getName:', cat.getName())//Fluffy
-    lg('getName2:', cat.getName2())//undefined
-    lg('getName3:', cat.getName3())//Fluffy
+
     break;
   case '102':
-    //Objects and arrays are passed by reference, and all other variables are passed by value!
-    const basicConfig = { host: 'localhost' }
-    const extendConfig = (config: any) => {
-      //Make a new object via spread operator or Object.assign, then add properties to it
-      return { ...config, port: 3000 }
-      //return Object.assign({}, config, { port: 3000 })
-      //config.port = 3000;//will mutate the passed object
-      //return config;
-    }
-    const extendedConfig = extendConfig(basicConfig)
-    lg('basicConfig', basicConfig)
-    lg('extendConfig', extendedConfig)
+
     break;
   case '10':
     break;

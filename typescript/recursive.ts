@@ -1,4 +1,6 @@
-export const extraLongFactorials = (input: any): string => {
+import { lg } from "./utils";
+
+export const factorialsBigint = (input: any): string => {
   //Avoid input name collide with my variable name below by changing the input variable name!
   //ALSO FIX THE FUNCTION NAME FOR RECURSIVE RESPONSE!
   const big0 = BigInt(0);
@@ -18,7 +20,7 @@ export const extraLongFactorials = (input: any): string => {
   //else if (bx == 0) return 1;
 
   else {
-    return (bx * BigInt(extraLongFactorials(bx - big1))).toString();
+    return (bx * BigInt(factorialsBigint(bx - big1))).toString();
   }
 }
 export const factorials = (input: any): bigint => {
@@ -70,4 +72,20 @@ export const factorials = (input: any): bigint => {
   (5 * (5 - 1) * (4 - 1) * (3 - 1) * (2 - 1)) = 5 * 4 * 3 * 2 * 1 = 120
   */
 
+}
+
+//missing argument => return a function
+export const numOrFunc = (...inputs: any[]): any => {
+  let [a, b] = inputs;
+  let out;
+  lg('numOrFunc inputs:', inputs)
+  if (typeof a === 'number') {
+    if (typeof b === 'number') {
+      out = a + b;
+    } else if (inputs.length === 1) {
+      out = (b: any) => numOrFunc(a, b)
+    }
+  }
+  lg('numOrFunc:', out);
+  return out;
 }

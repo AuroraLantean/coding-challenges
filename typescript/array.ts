@@ -293,6 +293,13 @@ export const filterByObjValues = (arr: any[], target: any) => {
   let f1 = arr.filter((item: any) => targetKeys.every(key => item[key] === target[key]))
   lg('filterByObjValues:', f1)
 }
+//-------------== Everything Be True
+export const checkTruthy = (collection: any[], key: string) => {
+  let isTrue = collection.every(obj => obj[key])
+  lg('checkTruthy:', isTrue)
+  return isTrue;
+}
+
 //-------------==
 type box = {
   title: string,
@@ -329,5 +336,3 @@ export const filterByObjNumKey = (arr: eachWord[]) => {
   lg('filterByObjNumKey:', out)
   return out;
 }
-
-
