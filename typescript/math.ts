@@ -7,6 +7,16 @@ export const roundDecimal = (n: number, dp = 0) => {
   return out;
 }
 
+export const celsiusToFahrenheit = (c: number) => {
+  let out = c * 9 / 5 + 32
+  lg('celsiusToFahrenheit():', out)
+  return out;
+}
+export const fahrenheitToCelsius = (f: number) => {
+  let out = (f - 32) * 5 / 9;
+  lg('fahrenheitToCelsius():', out)
+  return out;
+}
 /* print numbers from 1 to 100, but here’s the catch, multiple of three should print “Fizz” and similarly print “Buzz” for multiples of 5 and lastly print “FizzBuzz” for multiples of three and five.  */
 export const fizzBuzz = (max = 20, n1 = 3, n2 = 5) => {
   let out = [];

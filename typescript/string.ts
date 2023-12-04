@@ -1,6 +1,10 @@
 import { lg } from "./utils";
 
-export const reverseStr = (str: string) => str.split('').reverse().join('');
+export const reverseStr = (str: string) => {
+  let out = str.split('').reverse().join('');
+  lg('reverseStr', out);
+  return out;
+}
 export const reverseWords = (str: string) => {
   let out = str.split(' ').reverse().join(' ');
   lg('reverseWords:', out)

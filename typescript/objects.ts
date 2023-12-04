@@ -92,3 +92,26 @@ class Admin extends User {
   }
   getEditor() { return this.editor }
 }
+
+//make object via closure methods
+export const makePerson = function (init: number) {
+  let count = init;
+  const getCount = () => {
+    lg('count', count); return count;
+  };
+  const increment = (value: number) => {
+    count += value; lg('count', count)
+    return count;
+  }
+  const decrement = (value: number) => {
+    count -= value; lg('count', count)
+    return count;
+  }
+  const reset = (value: number) => {
+    count = init; lg('count', count)
+    return count;
+  }
+  return {
+    getCount, increment, decrement, reset
+  }
+}

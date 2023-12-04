@@ -89,3 +89,34 @@ export const numOrFunc = (...inputs: any[]): any => {
   lg('numOrFunc:', out);
   return out;
 }
+
+export const funcArray1 = (funcs: any[]) => {
+  return (x: any) => {
+    for (const fn of funcs.reverse()) {
+      x = fn(x)
+    }
+    return x;
+  }
+}
+export const funcArray2 = (funcs: any[]) => {
+  //const fn = (acc: number, f: any) => f(acc)
+  return (x: any) => funcs.reduceRight((acc: number, f: any) => f(acc), x)
+}
+
+export const hiddenCounter = (n: number) => {
+  let count = n
+  lg('hiddenCounter:', n)
+  return function () {
+    let out = count++
+    lg('counter:', out)
+    return out;
+  }
+}
+export const hiddenCounter2 = (n: number) => {
+  lg('hiddenCounter2:', n)
+  return () => {
+    let out = ++n
+    lg('counter2:', out)
+    return out;
+  }
+}

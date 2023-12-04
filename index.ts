@@ -1,9 +1,9 @@
 import { strArraySort, arraySum3, compareNumFromTwoArr, uniqueSet, strToIntArray, numArraySort, numArrayFindAbove, mostCommonChar, mergeObjArray2, mergeDupObjArray, removeDupObjArray, filterByObjValue1, filterByObjNumKey, numArrayFilter1, filterDupOb1Array, filterDupOb2Arrays, findRepeatedItem, uniqueOfArrays, compareTwoArr, filterByObjValues, uniqueOfArrays2, rangeSum, rangeSum2, sliceArray, flattenArray, checkTruthy } from "./typescript/array";
-import { factorialsBigint, numOrFunc } from "./typescript/recursive";
-import { findPattern, fizzBuzz, generateFibonacciNumUntil, isFibonacciNumber, isPrime, keplerThirdLaw, roundDecimal, smallestCommonMultiple, sumAllPrimes, sumFromZero, sumOddFibonacciNumber } from "./typescript/math";
-import { capitalize, firstRecurringChar, isPalindrome, longestWords, objMaxValue, objToArrays, reverseWords, sortWords, vowelCount, vowelCount2, wordCount, charCount, charCount2, uniqueCharFromStr, uniqueCharFromStr2, charCountOnEachWord, objToStr, getIndicesOf, getIndicesOf2, missingLetter, dnaPairing, replaceByBeforeCasing, pigLatin, pigLatin2, strToSpinalCase, convertStrToHTML, translateBinaryCode } from "./typescript/string";
+import { factorialsBigint, funcArray1, funcArray2, hiddenCounter, hiddenCounter2, numOrFunc } from "./typescript/recursive";
+import { celsiusToFahrenheit, fahrenheitToCelsius, findPattern, fizzBuzz, generateFibonacciNumUntil, isFibonacciNumber, isPrime, keplerThirdLaw, roundDecimal, smallestCommonMultiple, sumAllPrimes, sumFromZero, sumOddFibonacciNumber } from "./typescript/math";
+import { capitalize, firstRecurringChar, isPalindrome, longestWords, objMaxValue, objToArrays, reverseWords, sortWords, vowelCount, vowelCount2, wordCount, charCount, charCount2, uniqueCharFromStr, uniqueCharFromStr2, charCountOnEachWord, objToStr, getIndicesOf, getIndicesOf2, missingLetter, dnaPairing, replaceByBeforeCasing, pigLatin, pigLatin2, strToSpinalCase, convertStrToHTML, translateBinaryCode, reverseStr } from "./typescript/string";
 import { lg } from "./typescript/utils";
-import { extendObj, Person, objThis, User } from "./typescript/objects";
+import { extendObj, Person, objThis, User, makePerson } from "./typescript/objects";
 
 const args = Bun.argv;
 const arg1 = args[2];//, arg2 = args[3];
@@ -41,6 +41,10 @@ switch (arg1) {
     break;
   case '1':
     fizzBuzz()
+    celsiusToFahrenheit(30)
+    celsiusToFahrenheit(-40)
+    fahrenheitToCelsius(86)
+    fahrenheitToCelsius(-40)
     break;
   case '2':
     let oFacto = factorialsBigint(0)//1
@@ -53,6 +57,24 @@ switch (arg1) {
     lg('oFacto:', oFacto)
     oFacto = factorialsBigint(45)//119622220865480194561963161495657715064383733760000000000
     lg('oFacto:', oFacto)
+
+    numOrFunc(2.67, 3)//5.67
+    numOrFunc("2", 3)//undefined
+    numOrFunc(5, undefined)//undefined
+    numOrFunc('hello')//undefined
+    numOrFunc(5)(7)//12
+    numOrFunc(2)([3])//undefined
+    numOrFunc()//undefined
+
+    let fn1 = funcArray1([(x: number) => x + 1, (x: number) => x * 2])
+    let fn2 = funcArray2([(x: number) => x + 1, (x: number) => x * 2])
+    lg('funcArray1: ' + fn1(4), ', funcArray2: ' + fn2(4))
+    const counter = hiddenCounter(10)
+    counter()
+    counter()
+    const counter2 = hiddenCounter2(10)
+    counter2()
+    counter2()
     break;
   case '3':
     smallestCommonMultiple([1, 5])
@@ -142,6 +164,7 @@ switch (arg1) {
     convertStrToHTML("Schindler's List")
     convertStrToHTML("<>")
 
+    reverseStr('hello')
     break;
   case '44':
     inputs = "str1,str2,str3,str4"
@@ -284,13 +307,6 @@ switch (arg1) {
     checkTruthy([{ id: 1, data: { url: "https", name: "john" } }, { id: null, data: {} }], "data")// truthy of {} == true
     checkTruthy([{ id: 1, data: { url: "https", name: "john" } }, { id: null, data: {} }], "id")// truthy of null == false
 
-    numOrFunc(2.67, 3)//5.67
-    numOrFunc("2", 3)//undefined
-    numOrFunc(5, undefined)//undefined
-    numOrFunc('hello')//undefined
-    numOrFunc(5)(7)//12
-    numOrFunc(2)([3])//undefined
-    numOrFunc()//undefined
     break;
   case '54':
     break;
@@ -327,6 +343,12 @@ switch (arg1) {
     user1.setFirstName('Joe')
     lg('firstName:', user1.first)
     lg('constant1:', User.constant1)
+
+    const person = makePerson(10)
+    person.getCount()
+    person.increment(7)
+    person.decrement(3)
+    person.getCount()
     break;
   case '61':
     break;

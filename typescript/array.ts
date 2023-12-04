@@ -2,6 +2,10 @@
  * make new input arguments for easy copying and pasting into real tests
  */
 const lg = console.log;
+//-----------------==
+export const TransformEachViaFn = (arr: any[], fn: () => void) => {
+  return arr.map(fn)
+}
 //-----------------== Number Array
 export const compareNumFromTwoArr = (ar1: any[], ar2: any[]) => {
   //Avoid input name collide with my variable name below by changing the input variable name!
@@ -59,6 +63,14 @@ export const numArrayFilter1 = (nums: number[]) => {
   lg('numArrayFilter1:', out)
   return out
 }
+export const numArrayFilter2 = (nums: number[], fn: (v: any, i: number) => boolean) => {
+  const out = [];
+  for (let i = 0; i < nums.length; i++) {
+    if (fn(nums[i], i)) out.push(nums[i])
+  }
+  lg('numArrayFilter2:', out)
+  return out
+}
 export const numArrayFilter3 = (nums: number[]) => {
   let out = nums.reduce((acc: any, x) => {
     if (x % 3 === 0 || x % 2 === 0) {
@@ -93,7 +105,8 @@ export const compareTwoArr = (ar1: any[], ar2: any[]) => {
 }
 //------== Sorted Union ;;; Rest Parameter ;;; Variadic ;;; Nested ;;;
 export const uniqueOfArrays = (...args: any[]) => {
-  let combined = [].concat(...args);//destruture twice
+  //Notice: ...args above is Rest Parameter, and ...args below is spread operator!!!
+  let combined = [].concat(...args);//concat can take multiple arguments
   //lg('args:', args, ', combined:', combined)
   let uniqueArr = [] as any[]
   combined.forEach(x => {
@@ -112,9 +125,9 @@ export const uniqueOfArrays = (...args: any[]) => {
   return uniqueArr
 }
 export const uniqueOfArrays2 = (...args: any[]) => {
-  let combined = [...new Set(args.flat())]
-  lg('uniqueOfArrays2:', combined)
-  return combined;
+  let uniques = [...new Set(args.flat())]
+  lg('uniqueOfArrays2:', uniques)
+  return uniques;
 }
 //------== Drop it
 export const sliceArray = (arr: any, func: (x: any) => boolean) => {
