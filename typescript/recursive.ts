@@ -99,7 +99,6 @@ export const funcArray1 = (funcs: any[]) => {
   }
 }
 export const funcArray2 = (funcs: any[]) => {
-  //const fn = (acc: number, f: any) => f(acc)
   return (x: any) => funcs.reduceRight((acc: number, f: any) => f(acc), x)
 }
 
@@ -118,5 +117,60 @@ export const hiddenCounter2 = (n: number) => {
     let out = ++n
     lg('counter2:', out)
     return out;
+  }
+}
+
+//Higher Order Functions for calling only once
+export const callOnlyOnce = (fn: any) => {
+  let called = false;
+  return (...args: any[]) => {
+    if (called) return undefined;
+    called = true
+    return fn(...args);
+  }
+}
+//Cached function OR Higher Order Function with decorator pattern
+export const memoize = (fn: any) => {
+  const cache = {} as any;
+  return (...args: any[]) => {
+    const key = JSON.stringify(args);//key are stringified arguments
+    if (key in cache) {
+      return cache[key];
+    }
+    cache[key] = fn(...args)
+    return cache[key];
+  }
+}
+export let callCount = 0;
+export const memoizedFn = memoize((a: number, b: number) => {
+  callCount += 1;
+  let out = a + b;
+  lg('memoizedFn out: ' + out)
+  return out;
+})
+
+export const curry = (fn: any) => {
+  let nums = [] as number[];
+  return function curried(...args: any[]) {
+    nums = [...nums, ...args];//expensive operation!
+    if (fn.length === nums.length) {
+      const res = fn(...nums);
+      lg('curried:', res)
+      nums = []
+      return res;
+    } else {
+      return curried;
+    }
+  }
+}
+export const curry2 = (fn: any) => {
+  return function curried(...args: any[]) {
+    if (fn.length === args.length) {
+      const res = fn(...args);
+      lg('curry2:', res)
+      return res;
+    } else {
+      return (...newArgs: number[]) => curried(...args, ...newArgs)
+    }
   }
 }

@@ -1,5 +1,5 @@
 import { strArraySort, arraySum3, compareNumFromTwoArr, uniqueSet, strToIntArray, numArraySort, numArrayFindAbove, mostCommonChar, mergeObjArray2, mergeDupObjArray, removeDupObjArray, filterByObjValue1, filterByObjNumKey, numArrayFilter1, filterDupOb1Array, filterDupOb2Arrays, findRepeatedItem, uniqueOfArrays, compareTwoArr, filterByObjValues, uniqueOfArrays2, rangeSum, rangeSum2, sliceArray, flattenArray, checkTruthy } from "./typescript/array";
-import { factorialsBigint, funcArray1, funcArray2, hiddenCounter, hiddenCounter2, numOrFunc } from "./typescript/recursive";
+import { callCount, callOnlyOnce, curry, curry2, factorialsBigint, funcArray1, funcArray2, hiddenCounter, hiddenCounter2, memoize, memoizedFn, numOrFunc } from "./typescript/recursive";
 import { celsiusToFahrenheit, fahrenheitToCelsius, findPattern, fizzBuzz, generateFibonacciNumUntil, isFibonacciNumber, isPrime, keplerThirdLaw, roundDecimal, smallestCommonMultiple, sumAllPrimes, sumFromZero, sumOddFibonacciNumber } from "./typescript/math";
 import { capitalize, firstRecurringChar, isPalindrome, longestWords, objMaxValue, objToArrays, reverseWords, sortWords, vowelCount, vowelCount2, wordCount, charCount, charCount2, uniqueCharFromStr, uniqueCharFromStr2, charCountOnEachWord, objToStr, getIndicesOf, getIndicesOf2, missingLetter, dnaPairing, replaceByBeforeCasing, pigLatin, pigLatin2, strToSpinalCase, convertStrToHTML, translateBinaryCode, reverseStr } from "./typescript/string";
 import { lg } from "./typescript/utils";
@@ -69,12 +69,33 @@ switch (arg1) {
     let fn1 = funcArray1([(x: number) => x + 1, (x: number) => x * 2])
     let fn2 = funcArray2([(x: number) => x + 1, (x: number) => x * 2])
     lg('funcArray1: ' + fn1(4), ', funcArray2: ' + fn2(4))
+
     const counter = hiddenCounter(10)
     counter()
     counter()
     const counter2 = hiddenCounter2(10)
     counter2()
     counter2()
+
+    let fn = (a: number, b: number, c: number) => (a + b + c)
+    let onceFn = callOnlyOnce(fn)
+    lg('onceFn:', onceFn(1, 2, 3))
+    lg('onceFn:', onceFn(2, 3, 6))
+
+    memoizedFn(2, 3)
+    memoizedFn(2, 3)
+    lg('callCount', callCount)
+
+    const sum = (a: number, b: number, c: number) => a + b + c;
+    const csum = curry(sum)
+    csum(1)(2)(4)
+    csum(1, 2)(4)
+    csum(1, 2, 4)
+
+    const csum2 = curry2(sum)
+    csum2(1)(2)(4)
+    csum2(1, 2)(4)
+    csum2(1, 2, 4)
     break;
   case '3':
     smallestCommonMultiple([1, 5])
